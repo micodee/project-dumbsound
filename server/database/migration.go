@@ -11,6 +11,7 @@ func RunMigration() {
 		&models.Music{},
 		&models.Artis{},
 		&models.User{},
+		&models.Transaction{},
 	)
 
 	if err != nil {

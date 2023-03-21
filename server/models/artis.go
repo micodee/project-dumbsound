@@ -3,7 +3,7 @@ package models
 import "time"
 
 type Artis struct {
-	ID          int       `json:"id"`
+	ID          int       `json:"id" gorm:"primary_key: auto_increment"`
 	Name        string    `json:"name" gorm:"type: varchar(255)"`
 	Old         int       `json:"old" gorm:"type: int"`
 	Type        string    `json:"type" gorm:"type: varchar(255)"`
@@ -13,7 +13,7 @@ type Artis struct {
 }
 
 type ArtisRelation struct {
-	ID          int    `json:"id"`
+	ID          int    `json:"id" gorm:"primary_key: auto_increment" gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
 	Name        string `json:"name"`
 	Old         int    `json:"old"`
 	Type        string `json:"type"`

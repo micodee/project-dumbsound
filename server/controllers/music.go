@@ -41,17 +41,21 @@ func (h *musicControl) GetMusics(c echo.Context) error {
 
 func (h *musicControl) CreateMusic(c echo.Context) error {
 	// get file IMAGE
-	dataFile := c.Get("image").(string)
-	fmt.Println(dataFile, "upload successfully")
+	fileImage := c.Get("image").(string)
+	fileMusic := c.Get("music").(string)
+	fmt.Println(fileImage, "upload successfully")
+	fmt.Println(fileMusic, "upload successfully")
 
 	year, _ := strconv.Atoi(c.FormValue("year"))
+	artis, _ := strconv.Atoi(c.FormValue("artis_id"))
 
 	// get request
 	request := dto.CreateMusicRequest{
 		Title:     c.FormValue("title"),
 		Year:      year,
-		Thumbnail: dataFile,
-		Attach:    c.FormValue("attach"),
+		Thumbnail: fileImage,
+		Attach:    fileMusic,
+		ArtisID:   artis,
 	}
 
 	validation := validator.New()
@@ -66,6 +70,7 @@ func (h *musicControl) CreateMusic(c echo.Context) error {
 		Year:      request.Year,
 		Thumbnail: request.Thumbnail,
 		Attach:    request.Attach,
+		ArtisID:   request.ArtisID,
 	}
 
 	data, err := h.MusicRepository.CreateMusic(music)

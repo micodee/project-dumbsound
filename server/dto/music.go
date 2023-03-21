@@ -13,6 +13,7 @@ type CreateMusicRequest struct {
 	Year      int    `json:"year" form:"year" validate:"required"`
 	Thumbnail string `json:"thumbnail" form:"thumbnail" validate:"required"`
 	Attach    string `json:"attach" form:"attach" validate:"required"`
+	ArtisID   int    `json:"artis_id" form:"artis_id"`
 }
 
 type UpdateMusicRequest struct {
