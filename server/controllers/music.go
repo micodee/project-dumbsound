@@ -35,7 +35,7 @@ func (h *musicControl) GetMusics(c echo.Context) error {
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, result.ErrorResult{Status: http.StatusBadRequest, Message: err.Error()})
 	}
-	return c.JSON(http.StatusOK, result.SuccessResult{Status: "get success", Data: resp(music)})
+	return c.JSON(http.StatusOK, result.SuccessResult{Status: "get success", Data: respMusic(music)})
 }
 
 func (h *musicControl) CreateMusic(c echo.Context) error {
@@ -62,7 +62,7 @@ func (h *musicControl) CreateMusic(c echo.Context) error {
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, result.ErrorResult{Status: http.StatusInternalServerError, Message: err.Error()})
 	}
-	return c.JSON(http.StatusOK, result.SuccessResult{Status: "created success", Data: resp(data)})
+	return c.JSON(http.StatusOK, result.SuccessResult{Status: "created success", Data: respMusic(data)})
 }
 
 func (h *musicControl) UpdateMusic(c echo.Context) error {
@@ -96,7 +96,7 @@ func (h *musicControl) UpdateMusic(c echo.Context) error {
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, result.ErrorResult{Status: http.StatusInternalServerError, Message: err.Error()})
 	}
-	return c.JSON(http.StatusOK, result.SuccessResult{Status: "updated success", Data: resp(data)})
+	return c.JSON(http.StatusOK, result.SuccessResult{Status: "updated success", Data: respMusic(data)})
 }
 
 func (h *musicControl) DeleteMusic(c echo.Context) error {
@@ -111,10 +111,10 @@ func (h *musicControl) DeleteMusic(c echo.Context) error {
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, result.ErrorResult{Status: http.StatusInternalServerError, Message: err.Error()})
 	}
-	return c.JSON(http.StatusOK, result.SuccessResult{Status: "deleted success", Data: resp(data)})
+	return c.JSON(http.StatusOK, result.SuccessResult{Status: "deleted success", Data: respMusic(data)})
 }
 
-func resp(u models.Music) dto.MusicResponse {
+func respMusic(u models.Music) dto.MusicResponse {
 	return dto.MusicResponse{
 		ID:        u.ID,
 		Title:     u.Title,

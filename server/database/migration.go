@@ -7,7 +7,10 @@ import (
 )
 
 func RunMigration() {
-	err := mysql.ConnDB.AutoMigrate(&models.Music{})
+	err := mysql.ConnDB.AutoMigrate(
+		&models.Music{},
+		&models.Artis{},
+	)
 
 	if err != nil {
 		fmt.Println(err)
