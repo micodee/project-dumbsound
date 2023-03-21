@@ -10,6 +10,7 @@ func RunMigration() {
 	err := mysql.ConnDB.AutoMigrate(
 		&models.Music{},
 		&models.Artis{},
+		&models.User{},
 	)
 
 	if err != nil {
