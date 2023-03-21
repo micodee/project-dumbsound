@@ -41,7 +41,7 @@ func (h *musicControl) GetMusics(c echo.Context) error {
 
 func (h *musicControl) CreateMusic(c echo.Context) error {
 	// get file IMAGE
-	dataFile := c.Get("dataFile").(string)
+	dataFile := c.Get("image").(string)
 	fmt.Println(dataFile, "upload successfully")
 
 	year, _ := strconv.Atoi(c.FormValue("year"))
