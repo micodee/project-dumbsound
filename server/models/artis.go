@@ -11,3 +11,16 @@ type Artis struct {
 	CreatedAt   time.Time `json:"created_at"`
 	UpdatedAt   time.Time `json:"updated_at"`
 }
+
+type ArtisRelation struct {
+	ID          int    `json:"id"`
+	Name        string `json:"name"`
+	Old         int    `json:"old"`
+	Type        string `json:"type"`
+	StartCareer int    `json:"start_career"`
+}
+
+// so as not to create a new relation table
+func (ArtisRelation) TableName() string {
+	return "artis"
+}
