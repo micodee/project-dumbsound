@@ -5,6 +5,7 @@ import (
 	"dumbsound/dto/result"
 	"dumbsound/models"
 	"dumbsound/repositories"
+	"fmt"
 	"net/http"
 	"strconv"
 
@@ -39,9 +40,18 @@ func (h *musicControl) GetMusics(c echo.Context) error {
 }
 
 func (h *musicControl) CreateMusic(c echo.Context) error {
-	request := new(dto.CreateMusicRequest)
-	if err := c.Bind(request); err != nil {
-		return c.JSON(http.StatusBadRequest, result.ErrorResult{Status: http.StatusBadRequest, Message: err.Error()})
+	// get file IMAGE
+	dataFile := c.Get("dataFile").(string)
+	fmt.Println(dataFile, "upload successfully")
+
+	year, _ := strconv.Atoi(c.FormValue("year"))
+
+	// get request
+	request := dto.CreateMusicRequest{
+		Title:     c.FormValue("title"),
+		Year:      year,
+		Thumbnail: dataFile,
+		Attach:    c.FormValue("attach"),
 	}
 
 	validation := validator.New()

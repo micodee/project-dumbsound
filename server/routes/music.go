@@ -2,6 +2,7 @@ package routes
 
 import (
 	"dumbsound/controllers"
+	"dumbsound/pkg/middleware"
 	"dumbsound/pkg/mysql"
 	"dumbsound/repositories"
 
@@ -14,7 +15,7 @@ func MusicRoutes(e *echo.Group) {
 
 	e.GET("/musics", h.FindMusic)
 	e.GET("/music/:id", h.GetMusics)
-	e.POST("/music", h.CreateMusic)
-	e.PATCH("/music/:id", h.UpdateMusic)
-	e.DELETE("/music/:id", h.DeleteMusic)
+	e.POST("/music", middleware.Auth(middleware.Admin(middleware.UploadFile(h.CreateMusic))))
+	e.PATCH("/music/:id", middleware.Auth(middleware.Admin(h.UpdateMusic)))
+	e.DELETE("/music/:id", middleware.Auth(middleware.Admin(h.DeleteMusic)))
 }

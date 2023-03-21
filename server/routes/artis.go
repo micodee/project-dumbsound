@@ -2,6 +2,7 @@ package routes
 
 import (
 	"dumbsound/controllers"
+	"dumbsound/pkg/middleware"
 	"dumbsound/pkg/mysql"
 	"dumbsound/repositories"
 
@@ -14,7 +15,7 @@ func ArtisRoutes(e *echo.Group) {
 
 	e.GET("/artis", h.FindArtis)
 	e.GET("/artis/:id", h.GetArtis)
-	e.POST("/artis", h.CreateArtis)
-	e.PATCH("/artis/:id", h.UpdateArtis)
-	e.DELETE("/artis/:id", h.DeleteArtis)
+	e.POST("/artis", middleware.Auth(middleware.Admin(h.CreateArtis)))
+	e.PATCH("/artis/:id", middleware.Auth(middleware.Admin(h.UpdateArtis)))
+	e.DELETE("/artis/:id", middleware.Auth(middleware.Admin(h.DeleteArtis)))
 }
