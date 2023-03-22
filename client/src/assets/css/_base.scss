@@ -5,6 +5,30 @@
  padding: 0;
  box-sizing: border-box;
  font-family: 'Open Sans', sans-serif;
- background-color: #161616;
  color: #fff;
+}
+
+body {
+ background-color: #161616;
+}
+
+p {
+ margin: 0;
+ padding: 0;
+}
+
+.flex {
+ display: flex;
+ justify-content: center;
+ align-items: center;
+}
+
+.flex-between {
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+}
+
+.grid {
+ display: grid;
 }
