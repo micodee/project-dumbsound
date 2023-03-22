@@ -11,7 +11,7 @@ export default function Header() {
       <ModalLogin show={showLogin} hide={() => setModalLogin(false)} toRegister={() => [setModalLogin(false), setModalRegister(true)]}/>
       <ModalRegister show={showRegister} hide={() => setModalRegister(false)} toLogin={() => [setModalLogin(true), setModalRegister(false)]}/>
       <Navbar className="navbar" expand="lg" fixed={"top"} bg="transparent">
-        <Container fluid className="ms-5 me-5 p-2">
+        <Container fluid className="mx-5 p-2">
           <Navbar.Brand style={{ cursor: "pointer" }}>
             <img src={`img/LOGO.png`} alt="icon" className="me-2" />
             <img src={`img/DUMBSOUND.png`} alt="icon" />
