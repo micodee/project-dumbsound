@@ -7,4 +7,5 @@ func Routes(e *echo.Group) {
 	UserRoutes(e)
 	MusicRoutes(e)
 	ArtisRoutes(e)
+	TransactionRoutes(e)
 }

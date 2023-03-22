@@ -15,7 +15,7 @@ func UserRoutes(e *echo.Group) {
 	h := controllers.ControlUser(userRepository, AuthRepository)
 
 	e.GET("/users", middleware.Auth(middleware.Admin(h.FindUsers)))
-	e.GET("/user/:id", middleware.Auth(middleware.Admin(h.GetUser)))
+	e.GET("/user/:id", middleware.Auth(h.GetUser))
 	e.PATCH("/user", middleware.Auth(h.UpdateUser))
 	e.DELETE("/user/:id", middleware.Auth(middleware.Admin(h.DeleteUser)))
 }

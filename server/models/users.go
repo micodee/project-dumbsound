@@ -18,7 +18,8 @@ type User struct {
 
 // Associated with (Profile, Cart, Transaction)
 type UsersRelation struct {
-	ID       int    `json:"id"`
+	ID       int    `json:"id" gorm:"primary_key: auto_increment"`
+	Email    string `json:"email"`
 	Fullname string `json:"fullname"`
 }
 
