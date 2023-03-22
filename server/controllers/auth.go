@@ -53,15 +53,6 @@ func (h *handlerAuth) Register(c echo.Context) error {
 		role = "admin"
 	}
 
-	// check if email is exist
-	checkUserMail, err := h.AuthRepository.Login(request.Email)
-	if err != nil && (err.Error() != "record not found") {
-		return c.JSON(http.StatusBadRequest, result.ErrorResult{Status: http.StatusBadRequest, Message: err.Error()})
-	}
-	if checkUserMail.ID != 0 {
-		return c.JSON(http.StatusBadRequest, result.ErrorResult{Status: http.StatusBadRequest, Message: "Email already exists"})
-	}
-
 	// give value to struct models user
 	user := models.User{
 		Fullname: request.Fullname,
@@ -120,6 +111,7 @@ func (h *handlerAuth) Login(c echo.Context) error {
 	loginResponse := dto.LoginResponse{
 		Name:  user.Fullname,
 		Email: user.Email,
+		Role:  user.Role,
 		Token: token,
 	}
 
@@ -136,4 +128,13 @@ func ResponAuth(u models.User) dto.RegisterRespon {
 		Phone:    u.Phone,
 		Address:  u.Address,
 	}
+}
+
+func (h *handlerAuth) CheckAuth(c echo.Context) error {
+	userLogin := c.Get("userLogin")
+	userId := userLogin.(jwt.MapClaims)["id"].(float64)
+
+	user, _ := h.AuthRepository.CheckAuth(int(userId))
+
+	return c.JSON(http.StatusOK, result.SuccessResult{Status: "check user", Data: user})
 }
