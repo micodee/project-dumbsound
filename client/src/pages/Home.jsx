@@ -1,8 +1,10 @@
 import React from "react";
 import { Row, Card } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 
 export default function Home(props) {
+  let navigate = useNavigate()
   return (
     <>
       <Header IsLogin={props.IsLogin} user={props.user}/>
@@ -22,7 +24,7 @@ export default function Home(props) {
           <Row className="music grid">
           {props.music?.map(( item ) => {
           return (
-            <Card key={item.id} className="card-music">
+            <Card key={item.id} className="card-music" onClick={() => navigate(`/play-music`)}>
               <Card.Img variant="top" src={`http://localhost:8000/uploads/${item.thumbnail}`} className="thumbnail" />
               <Card.Body style={{ padding: "0" }}>
                 <Card.Title className="title flex-between">
