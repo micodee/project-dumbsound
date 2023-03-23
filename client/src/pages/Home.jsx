@@ -5,7 +5,7 @@ import Header from "../components/Header";
 export default function Home(props) {
   return (
     <>
-      <Header />
+      <Header IsLogin={props.IsLogin}/>
       <div className="home">
         <div className="flex">
           <img src={`img/Header.png`} alt="header" className="imgheader" />

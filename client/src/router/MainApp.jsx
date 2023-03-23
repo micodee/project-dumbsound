@@ -1,10 +1,57 @@
-import React, { useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import { Home } from "../pages";
-import { API } from "../config/api";
+import { API, setAuthToken } from "../config/api";
+import { UserContext } from "../context/contextUser";
 import { useQuery } from "react-query"
 
 export default function MainApp() {
+  let navigate = useNavigate();
+  const [state, dispatch] = useContext(UserContext);
+  const [isLoading, setIsLoading] = useState(true)
+  console.log(state.user.role);
+
+  useEffect(() => {
+    // Redirect Auth but just when isLoading is false
+    if (!isLoading) {
+      if (state.isLogin === false) {
+        navigate('/');
+      }
+    }
+  }, [isLoading]);
+
+  useEffect(() => {
+    if (localStorage.token) {
+      setAuthToken(localStorage.token);
+      checkUser();
+    } else {
+      setIsLoading(false)
+    }
+  }, []);
+
+  const checkUser = async () => {
+    try {
+      const response = await API.get('/check-auth');
+      // Get user data
+      let payload = response.data.data;
+      // Get token from local storage
+      payload.token = localStorage.token;
+      // Send data to useContext
+      dispatch({
+        type: 'USER_SUCCESS',
+        payload,
+      });
+      setIsLoading(false)
+    } catch (error) {
+      console.log("check user failed : ", error);
+      dispatch({
+        type: 'AUTH_ERROR',
+      });
+      setIsLoading(false)
+    }
+  };
+
+
   const [musicList, setMusic] = useState([])
 
   useQuery('musicCache', async () => {
@@ -18,11 +65,11 @@ export default function MainApp() {
   })
   return (
     <>
-      <Router>
+      {isLoading ? null :
         <Routes>
-          <Route path="/" element={<Home music={musicList} />} />
+          <Route path="/" element={<Home music={musicList} IsLogin={state.user.role}/>} />
         </Routes>
-      </Router>
+      }
     </>
   );
 }

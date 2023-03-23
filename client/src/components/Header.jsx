@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { Button, Container, Form, Nav, Navbar } from "react-bootstrap";
 import ModalLogin from "./ModalLogin";
 import ModalRegister from "./ModalRegister";
+import UserAdmin from "./UserAdmin";
+import UserCust from "./UserCust";
 
-export default function Header() {
+export default function Header(props) {
   const [showLogin, setModalLogin] = useState(false);
   const [showRegister, setModalRegister] = useState(false);
   return (
@@ -19,7 +21,17 @@ export default function Header() {
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">
             <Nav className="me-auto my-2 my-lg-0" style={{ maxHeight: "100px" }} navbarScroll></Nav>
-                <Form className="d-flex gap-3">
+            {props.IsLogin === "admin" ? (
+            <>
+              <UserAdmin />
+            </>
+          ) : props.IsLogin === "user" ? (
+            <>
+              <UserCust />
+            </>
+          ) : (
+            <>
+              <Form className="d-flex gap-3">
                   <Button className="login" onClick={() => setModalLogin(true)}>
                     Login
                   </Button>
@@ -27,6 +39,8 @@ export default function Header() {
                     Register
                   </Button>
                 </Form>
+            </>
+          )}
           </Navbar.Collapse>
         </Container>
       </Navbar>
