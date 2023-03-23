@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { Button, Container, Form, Nav, Navbar } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import ModalLogin from "./ModalLogin";
 import ModalRegister from "./ModalRegister";
 import UserAdmin from "./UserAdmin";
 import UserCust from "./UserCust";
 
 export default function Header(props) {
+  let navigate = useNavigate()
   const [showLogin, setModalLogin] = useState(false);
   const [showRegister, setModalRegister] = useState(false);
   return (
@@ -14,7 +16,7 @@ export default function Header(props) {
       <ModalRegister show={showRegister} hide={() => setModalRegister(false)} toLogin={() => [setModalLogin(true), setModalRegister(false)]}/>
       <Navbar className="navbar" expand="lg" fixed={"top"} bg="transparent">
         <Container fluid className="mx-5 p-2">
-          <Navbar.Brand style={{ cursor: "pointer" }}>
+          <Navbar.Brand style={{ cursor: "pointer" }} onClick={() => navigate("/")}>
             <img src={`img/LOGO.png`} alt="icon" className="me-2" />
             <img src={`img/DUMBSOUND.png`} alt="icon" />
           </Navbar.Brand>

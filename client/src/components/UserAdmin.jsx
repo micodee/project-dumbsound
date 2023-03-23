@@ -34,6 +34,8 @@ const UserAdmin = () => {
                 width: "60px",
                 height: "60px",
                 cursor: "pointer",
+                border: "2px solid #fff",
+                borderRadius: "50%",
               }}
             />
           </Dropdown.Toggle>
