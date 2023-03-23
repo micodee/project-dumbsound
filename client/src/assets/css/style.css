@@ -146,6 +146,7 @@ p {
 .productadd .formInputProduct {
   background-color: #454545;
   border: 2px solid #D2D2D2;
+  color: #D2D2D2;
 }
 
 .productadd .formInputProduct::-webkit-input-placeholder {
@@ -160,6 +161,20 @@ p {
 
 .detail .header {
   padding: 0;
+}
+
+.detail .preview-image {
+  width: 350px;
+  height: 350px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.detail .preview-music {
+  width: 350px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 5px;
 }
 
 .detailprice {

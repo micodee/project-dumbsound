@@ -18,7 +18,7 @@ export default function PlayMusic(props) {
           <Col className="header col-9 flex">
             <div className="col-12">
               <p className="mt-0 mb-1">SONG</p>
-              <h3 className="mt-1 mb-0 detail-title">{Product.tilte}</h3>
+              <h3 className="mt-1 mb-0 detail-title">{Product.title}</h3>
               <p className="mt-2 mb-3">{Product.artis.name} | {Product.year}</p>
               <AudioPlayer
                 className="bg-dark text-white"

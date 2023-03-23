@@ -54,6 +54,7 @@ export default function MainApp() {
 
   const [musicList, setMusic] = useState([])
   const [userList, setUser] = useState([])
+  const [artisList, setArtis] = useState([])
 
   useQuery('musicCache', async () => {
     try {
@@ -73,6 +74,15 @@ export default function MainApp() {
       return
     }
   })
+  useQuery('artisCache', async () => {
+    try {
+      const response = await API.get('/artis')
+      setArtis(response.data.data)
+    }
+    catch (error) {
+      return
+    }
+  })
 
   return (
     <>
@@ -80,7 +90,7 @@ export default function MainApp() {
       {isLoading ? null :
         <Routes>
           <Route path="/" element={<Home music={musicList} IsLogin={state.user.role} />} />
-          <Route path="/add-music" element={<AdminAddMusic IsLogin={state.user.role} />} />
+          <Route path="/add-music" element={<AdminAddMusic IsLogin={state.user.role} artis={artisList} />} />
           <Route path="/add-artis" element={<AdminAddArtis IsLogin={state.user.role} />} />
           <Route path="/premium" element={<UserPremium IsLogin={state.user.role} user={userList} />} />
           <Route path="/play-music/:id" element={<PlayMusic music={musicList} />} />
