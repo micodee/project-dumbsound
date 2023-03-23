@@ -24,7 +24,7 @@ export default function Home(props) {
           <Row className="music grid">
           {props.music?.map(( item ) => {
           return (
-            <Card key={item.id} className="card-music" onClick={() => navigate(`/play-music`)}>
+            <Card key={item.id} className="card-music" onClick={() => navigate(`/play-music/${item?.id}`)}>
               <Card.Img variant="top" src={`http://localhost:8000/uploads/${item.thumbnail}`} className="thumbnail" />
               <Card.Body style={{ padding: "0" }}>
                 <Card.Title className="title flex-between">

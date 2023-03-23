@@ -81,7 +81,7 @@ export default function MainApp() {
           <Route path="/add-music" element={<AdminAddMusic IsLogin={state.user.role} />} />
           <Route path="/add-artis" element={<AdminAddArtis IsLogin={state.user.role} />} />
           <Route path="/premium" element={<UserPremium IsLogin={state.user.role} user={userList} />} />
-          <Route path="/play-music" element={<PlayMusic IsLogin={state.user.role} user={userList} />} />
+          <Route path="/play-music/:id" element={<PlayMusic IsLogin={state.user.role} user={userList} music={musicList} />} />
         </Routes>
       }
     </>
