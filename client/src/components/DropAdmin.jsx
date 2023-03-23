@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../context/contextUser";
 import Swal from 'sweetalert2'
 
-const UserAdmin = () => {
+const DropAdmin = () => {
   let navigate = useNavigate()
   const [state, dispatch] = useContext(UserContext)
 
@@ -66,4 +66,4 @@ const UserAdmin = () => {
   );
 };
 
-export default UserAdmin;
+export default DropAdmin;

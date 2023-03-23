@@ -3,8 +3,8 @@ import { Button, Container, Form, Nav, Navbar } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import ModalLogin from "./ModalLogin";
 import ModalRegister from "./ModalRegister";
-import UserAdmin from "./UserAdmin";
-import UserCust from "./UserCust";
+import DropAdmin from "./DropAdmin";
+import DropUser from "./DropUser";
 
 export default function Header(props) {
   let navigate = useNavigate()
@@ -25,11 +25,11 @@ export default function Header(props) {
             <Nav className="me-auto my-2 my-lg-0" style={{ maxHeight: "100px" }} navbarScroll></Nav>
             {props.IsLogin === "admin" ? (
             <>
-              <UserAdmin />
+              <DropAdmin />
             </>
           ) : props.IsLogin === "user" ? (
             <>
-              <UserCust user={props.user} />
+              <DropUser user={props.user} />
             </>
           ) : (
             <>

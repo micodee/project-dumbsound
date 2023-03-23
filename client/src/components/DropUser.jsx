@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../context/contextUser";
 import Swal from 'sweetalert2'
 
-const UserCust = (props) => {
+const DropUser = (props) => {
   let navigate = useNavigate()
   const [state, dispatch] = useContext(UserContext)
 
@@ -25,7 +25,7 @@ const UserCust = (props) => {
   return (
     <div>
       <Form className="d-flex align-items-center gap-3">
-        <Link to="/" className="position-relative">
+        <Link to="/premium" className="position-relative">
           <h4 className="active-user">Hi, {props.user.fullname}</h4>
           <p className="active-remaining">You're active remaining <span style={{ color: "#eee", fontWeight: "bold" }}>3 days</span></p>
         </Link>
@@ -46,7 +46,7 @@ const UserCust = (props) => {
 
           <Dropdown.Menu>
             <Dropdown.Item>
-              <Link to="/profile" className="menu">
+              <Link to="/premium" className="menu">
                 <img src={`img/drop-pay.png`} alt="user" />
                 Pay
               </Link>
@@ -63,4 +63,4 @@ const UserCust = (props) => {
   );
 };
 
-export default UserCust;
+export default DropUser;

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
-import { AdminAddArtis, AdminAddMusic, Home } from "../pages";
+import { AdminAddArtis, AdminAddMusic, Home, UserPremium } from "../pages";
 import { API, setAuthToken } from "../config/api";
 import { UserContext } from "../context/contextUser";
 import { useQuery } from "react-query"
@@ -77,9 +77,10 @@ export default function MainApp() {
     <>
       {isLoading ? null :
         <Routes>
-          <Route path="/" element={<Home music={musicList} IsLogin={state.user.role} user={userList}/>} />
+          <Route path="/" element={<Home music={musicList} IsLogin={state.user.role} user={userList} />} />
           <Route path="/add-music" element={<AdminAddMusic IsLogin={state.user.role} />} />
-          <Route path="/add-artis" element={<AdminAddArtis />} />
+          <Route path="/add-artis" element={<AdminAddArtis IsLogin={state.user.role} />} />
+          <Route path="/premium" element={<UserPremium IsLogin={state.user.role} user={userList} />} />
         </Routes>
       }
     </>
