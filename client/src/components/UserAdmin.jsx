@@ -25,7 +25,7 @@ const UserAdmin = () => {
   return (
     <div>
       <Form className="d-flex align-items-center gap-3">
-        <Dropdown className="dropdown">
+        <Dropdown className="dropdown" align="end" id="dropdown-menu-align-end">
           <Dropdown.Toggle className="profile">
             <img
               src={`img/drop-profile.png`}
@@ -40,16 +40,16 @@ const UserAdmin = () => {
 
           <Dropdown.Menu>
             <Dropdown.Item>
-              <Link to="/add" className="menu">
-                <img src={`img/drop-beans.png`} alt="user" />
-                Add Product
+              <Link to="/add-music" className="menu">
+                <img src={`img/drop-add-music.png`} alt="add-music" />
+                Add Music
               </Link>
             </Dropdown.Item>
             <Dropdown.Divider />
             <Dropdown.Item>
-              <Link to="/list-product" className="menu">
-                <img src={`img/drop-beans.png`} alt="user" />
-                List Product
+              <Link to="/add-artis" className="menu">
+                <img src={`img/drop-add-artis.png`} alt="add-artis" />
+                Add Artis
               </Link>
             </Dropdown.Item>
             <Dropdown.Divider />

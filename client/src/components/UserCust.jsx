@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
-import { Form, Dropdown, Badge } from "react-bootstrap";
+import { Form, Dropdown } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../context/contextUser";
 import Swal from 'sweetalert2'
 
-const UserCust = () => {
+const UserCust = (props) => {
   let navigate = useNavigate()
   const [state, dispatch] = useContext(UserContext)
 
@@ -25,21 +25,11 @@ const UserCust = () => {
   return (
     <div>
       <Form className="d-flex align-items-center gap-3">
-        <Link to="/cart" className="position-relative">
-          <img
-            src={`img/nav-cart.png`}
-            alt="icon"
-            style={{ width: "35px", height: "32px", cursor: "pointer" }}
-          />
-          <Badge
-            pill
-            bg="danger"
-            style={{ position: "absolute", top: 0, right: "-.5rem" }}
-          >
-            1
-          </Badge>
+        <Link to="/" className="position-relative">
+          <h4 className="active-user">Hi, {props.user.fullname}</h4>
+          <p className="active-remaining">You're active remaining <span style={{ color: "#eee", fontWeight: "bold" }}>3 days</span></p>
         </Link>
-        <Dropdown className="dropdown">
+        <Dropdown className="dropdown" align="end" id="dropdown-menu-align-end">
           <Dropdown.Toggle className="profile">
             <img
               src={`img/drop-profile.png`}
@@ -48,6 +38,8 @@ const UserCust = () => {
                 width: "60px",
                 height: "60px",
                 cursor: "pointer",
+                border: "2px solid #fff",
+                borderRadius: "50%",
               }}
             />
           </Dropdown.Toggle>
@@ -55,8 +47,8 @@ const UserCust = () => {
           <Dropdown.Menu>
             <Dropdown.Item>
               <Link to="/profile" className="menu">
-                <img src={`img/drop-user.png`} alt="user" />
-                Profile
+                <img src={`img/drop-pay.png`} alt="user" />
+                Pay
               </Link>
             </Dropdown.Item>
             <Dropdown.Divider />

@@ -52,11 +52,11 @@ export default function ModalLogin(props) {
 
       // Status check
       if (response.data.data.role === 'admin') {
+        window.location.reload();
         navigate('/');
-        console.log(`You're Admin ${response.data.data.name}`);
       } else if (response.data.data.role === 'user') {
+        window.location.reload();
         navigate('/');
-        console.log(`You're User ${response.data.data.name}`);
       } else {
         navigate('/')
       }

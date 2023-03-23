@@ -27,7 +27,7 @@ export default function Header(props) {
             </>
           ) : props.IsLogin === "user" ? (
             <>
-              <UserCust />
+              <UserCust user={props.user} />
             </>
           ) : (
             <>
