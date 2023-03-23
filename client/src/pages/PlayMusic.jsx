@@ -1,6 +1,5 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import Header from "../components/Header";
 import AudioPlayer from "react-h5-audio-player";
 import "react-h5-audio-player/lib/styles.css";
 import { useParams } from "react-router-dom";
@@ -11,7 +10,6 @@ export default function PlayMusic(props) {
   Product = Product[0];
   return (
     <>
-      <Header IsLogin={props.IsLogin} user={props.user} />
       <Container className="detail col-9">
         <Row className="flex-between">
           <Col className="header col-2">

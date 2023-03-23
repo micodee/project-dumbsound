@@ -1,13 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { Row, Card } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import Header from "../components/Header";
+import ModalLogin from "../components/ModalLogin";
+import ModalRegister from "../components/ModalRegister";
 
 export default function Home(props) {
   let navigate = useNavigate()
+
+  const [showLogin, setModalLogin] = useState(false);
+  const [showRegister, setModalRegister] = useState(false)
   return (
     <>
-      <Header IsLogin={props.IsLogin} user={props.user}/>
       <div className="home">
         <div className="flex">
           <img src={`img/Header.png`} alt="header" className="imgheader" />
@@ -24,7 +27,9 @@ export default function Home(props) {
           <Row className="music grid">
           {props.music?.map(( item ) => {
           return (
-            <Card key={item.id} className="card-music" onClick={() => navigate(`/play-music/${item?.id}`)}>
+            <Card key={item.id} className="card-music" 
+            onClick={() => props.IsLogin != null ? navigate(`/play-music/${item?.id}`) : setModalLogin(true)}
+            >
               <Card.Img variant="top" src={`http://localhost:8000/uploads/${item.thumbnail}`} className="thumbnail" />
               <Card.Body style={{ padding: "0" }}>
                 <Card.Title className="title flex-between">
@@ -40,6 +45,16 @@ export default function Home(props) {
           })}
           </Row>
         </div>
+        <ModalLogin
+          show={showLogin}
+          hide={() => setModalLogin(false)}
+          toRegister={() => [setModalLogin(false), setModalRegister(true)]}
+        />
+        <ModalRegister
+          show={showRegister}
+          hide={() => setModalRegister(false)}
+          toLogin={() => [setModalRegister(false), setModalLogin(true)]}
+        />
       </div>
     </>
   );

@@ -4,6 +4,7 @@ import { AdminAddArtis, AdminAddMusic, Home, PlayMusic, UserPremium } from "../p
 import { API, setAuthToken } from "../config/api";
 import { UserContext } from "../context/contextUser";
 import { useQuery } from "react-query"
+import Header from "../components/Header";
 
 export default function MainApp() {
   let navigate = useNavigate();
@@ -75,13 +76,14 @@ export default function MainApp() {
 
   return (
     <>
+      <Header IsLogin={state.user.role} user={userList} />
       {isLoading ? null :
         <Routes>
-          <Route path="/" element={<Home music={musicList} IsLogin={state.user.role} user={userList} />} />
+          <Route path="/" element={<Home music={musicList} IsLogin={state.user.role} />} />
           <Route path="/add-music" element={<AdminAddMusic IsLogin={state.user.role} />} />
           <Route path="/add-artis" element={<AdminAddArtis IsLogin={state.user.role} />} />
           <Route path="/premium" element={<UserPremium IsLogin={state.user.role} user={userList} />} />
-          <Route path="/play-music/:id" element={<PlayMusic IsLogin={state.user.role} user={userList} music={musicList} />} />
+          <Route path="/play-music/:id" element={<PlayMusic music={musicList} />} />
         </Routes>
       }
     </>

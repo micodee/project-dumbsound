@@ -48,7 +48,14 @@ const DropUser = (props) => {
             <Dropdown.Item>
               <Link to="/premium" className="menu">
                 <img src={`img/drop-pay.png`} alt="user" />
-                Pay
+                Premium
+              </Link>
+            </Dropdown.Item>
+            <Dropdown.Divider />
+            <Dropdown.Item>
+              <Link to="/profile" className="menu">
+                <img src={`img/drop-user.png`} alt="user" />
+                Profile
               </Link>
             </Dropdown.Item>
             <Dropdown.Divider />
