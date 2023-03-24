@@ -5,12 +5,19 @@ import (
 	"dumbsound/pkg/mysql"
 	"dumbsound/routes"
 	"fmt"
+	"os"
 
+	"github.com/joho/godotenv"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )
 
 func main() {
+	errEnv := godotenv.Load()
+	if errEnv != nil {
+		panic("Failed to load env file")
+	}
+
 	e := echo.New()
 
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
@@ -25,7 +32,7 @@ func main() {
 	routes.Routes(e.Group("api/v1"))
 	e.Static("/uploads", "./uploads")
 
-	port := "8000"
+	port := os.Getenv("PORT")
 	fmt.Println("server running on port", port)
-	e.Logger.Fatal(e.Start("localhost:" + port))
+	e.Logger.Fatal(e.Start(":" + port))
 }
