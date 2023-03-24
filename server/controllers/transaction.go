@@ -7,6 +7,7 @@ import (
 	"dumbsound/repositories"
 	"net/http"
 	"strconv"
+	"time"
 
 	"github.com/go-playground/validator/v10"
 	"github.com/golang-jwt/jwt/v4"
@@ -51,15 +52,23 @@ func (h *transactionControl) CreateTransaction(c echo.Context) error {
 		return c.JSON(http.StatusBadRequest, result.ErrorResult{Status: http.StatusBadRequest, Message: err.Error()})
 	}
 
+	// convert time to string
+	dateNow := time.Now()
+	sDate := dateNow.Format("02 January 2006")
+	endDate := dateNow.AddDate(0,0,request.Active)
+	eDate := endDate.Format("02 January 2006")
+
+
 	// get user FROM JWT TOKEN
 	userLogin := c.Get("userLogin")
 	userId := userLogin.(jwt.MapClaims)["id"].(float64)
 
 	// data form pattern submit to pattern entity db transaction
 	transaction := models.Transaction{
-		StartDate: request.StartDate,
-		DueDate:   request.DueDate,
+		StartDate: sDate,
+		DueDate:   eDate,
 		Status:    request.Status,
+		Active:    request.Active,
 		UserID:    int(userId),
 	}
 
@@ -83,15 +92,11 @@ func (h *transactionControl) UpdateTransaction(c echo.Context) error {
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, result.ErrorResult{Status: http.StatusBadRequest, Message: err.Error()})
 	}
-
-	if request.StartDate != "" {
-		transaction.StartDate = request.StartDate
-	}
-	if request.DueDate != "" {
-		transaction.DueDate = request.DueDate
-	}
 	if request.Status != "" {
 		transaction.Status = request.Status
+	}
+	if request.Active != 0 {
+		transaction.Active = request.Active
 	}
 
 	data, err := h.TransactionRepository.UpdateTransaction(transaction, id)

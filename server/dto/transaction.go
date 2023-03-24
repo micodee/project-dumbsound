@@ -6,17 +6,15 @@ type TransactionResponse struct {
 	StartDate string `json:"start_date"`
 	DueDate   string `json:"due_date"`
 	Status    string `json:"status"`
-	Active    string `json:"active"`
+	Active    int    `json:"active"`
 }
 
 type CreateTransactionRequest struct {
-	StartDate string `json:"start_date" form:"start_date"`
-	DueDate   string `json:"due_date" form:"due_date"`
 	Status    string `json:"status" form:"status"`
+	Active    int    `json:"active" form:"active"`
 }
 
 type UpdateTransactionRequest struct {
-	StartDate string `json:"start_date" form:"start_date"`
-	DueDate   string `json:"due_date" form:"due_date"`
 	Status    string `json:"status" form:"status"`
+	Active    int    `json:"active" form:"active"`
 }
