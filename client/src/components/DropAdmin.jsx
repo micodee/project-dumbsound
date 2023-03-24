@@ -43,27 +43,27 @@ const DropAdmin = () => {
           <Dropdown.Menu>
             <Dropdown.Item>
               <Link to="/add-music" className="menu">
-                <img src={`img/drop-add-music.png`} alt="add-music" />
+                <img src={`/img/drop-add-music.png`} alt="add-music" />
                 Add Music
               </Link>
             </Dropdown.Item>
             <Dropdown.Divider />
             <Dropdown.Item>
               <Link to="/add-artis" className="menu">
-                <img src={`img/drop-add-artis.png`} alt="add-artis" />
+                <img src={`/img/drop-add-artis.png`} alt="add-artis" />
                 Add Artis
               </Link>
             </Dropdown.Item>
             <Dropdown.Divider />
             <Dropdown.Item>
               <Link to="/list-music" className="menu">
-                <img src={`img/drop-add-music.png`} alt="list-music" />
+                <img src={`/img/drop-add-music.png`} alt="list-music" />
                 List Music
               </Link>
             </Dropdown.Item>
             <Dropdown.Divider />
             <Dropdown.Item onClick={logout} className="menu">
-              <img src={`img/drop-logout.png`} alt="logout" />
+              <img src={`/img/drop-logout.png`} alt="logout" />
               Logout
             </Dropdown.Item>
           </Dropdown.Menu>

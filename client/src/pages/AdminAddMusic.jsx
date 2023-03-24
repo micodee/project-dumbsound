@@ -16,26 +16,6 @@ export default function AdminAddMusic(props) {
   const [urlImage, setUrlImage] = useState("Attach Thumbnail");
   const [UrlMusic, setUrlMusic] = useState("Attach Music");
 
-  // Handle change data on form
-  const onChangeThumbnail = (e) => {
-    // Create image url for preview
-    if (e.target.type === 'file') {
-      let url = URL.createObjectURL(e.target.files[0]);
-      setUrlImage(e.target.files[0].name);
-      setPreviewImage(url);
-    }
-  };
-  // Handle change data on form
-  const onChangeMusic = (e) => {
-    // Create image url for preview
-    if (e.target.type === 'file') {
-      let url = URL.createObjectURL(e.target.files[0]);
-      setUrlMusic(e.target.files[0].name);
-      setAutoplay("autoplay")
-      setPreviewMusic(url);
-    }
-  };
-
   // form data
   const [formAddMusic, setformAddMusic] = useState({
     title: "",
@@ -45,17 +25,45 @@ export default function AdminAddMusic(props) {
     artis_id: "",
   });
 
-  const { title, year, thumbnail, attach, artis_id } = formAddMusic
+  const { title, year, artis_id } = formAddMusic
 
   const onChangeForm = (e) => {
     setformAddMusic({
       ...formAddMusic,
       [e.target.name]:
         e.target.type === 'file' ? e.target.files : e.target.value,
-
-        
     });
   }
+
+  // Handle change data on form
+  const onChangeThumbnail = (e) => {
+    setformAddMusic({
+      ...formAddMusic,
+      [e.target.name]:
+        e.target.type === 'file' ? e.target.files : e.target.value,
+    });
+    // Create image url for preview
+    if (e.target.type === 'file') {
+      let urlImage = URL.createObjectURL(e.target.files[0]);
+      setUrlImage(e.target.files[0].name);
+      setPreviewImage(urlImage);
+    }
+  };
+  // Handle change data on form
+  const onChangeMusic = (e) => {
+    setformAddMusic({
+      ...formAddMusic,
+      [e.target.name]:
+        e.target.type === 'file' ? e.target.files : e.target.value,
+    });
+    // Create image url for preview
+    if (e.target.type === 'file') {
+      let urlMusic = URL.createObjectURL(e.target.files[0]);
+      setUrlMusic(e.target.files[0].name);
+      setAutoplay("autoplay")
+      setPreviewMusic(urlMusic);
+    }
+  };
 
   const submitAddMusic = useMutation(async (e) => {
     try {
@@ -68,14 +76,13 @@ export default function AdminAddMusic(props) {
         },
       };
 
-      return console.log(formAddMusic);
       // Store data with FormData as object
       const formData = new FormData();
       formData.set('title', formAddMusic.title);
       formData.set('thumbnail', formAddMusic.thumbnail[0], formAddMusic.thumbnail[0].name);
       formData.set('year', formAddMusic.year);
       formData.set('artis_id', formAddMusic.artis_id);
-      formData.set('attach', formAddMusic.attach[0]);
+      formData.set('attach', formAddMusic.attach[0], formAddMusic.attach[0].name);
 
       // Insert product data
       const response = await API.post('/music', formData, config);
@@ -124,7 +131,6 @@ export default function AdminAddMusic(props) {
                       type="file"
                       className="py-2"
                       name="thumbnail"
-                      value={thumbnail}
                       onChange={onChangeThumbnail}
                     />
                   </Col>
@@ -156,7 +162,6 @@ export default function AdminAddMusic(props) {
                   type="file"
                   className="py-2"
                   name='attach'
-                  value={attach}
                   onChange={onChangeMusic}
                 />
               </Form.Group>
