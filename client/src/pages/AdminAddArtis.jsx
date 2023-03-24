@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Container, Row, Col, Button, Form, Table } from "react-bootstrap";
-import { useMutation } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import Header from '../components/Header'
+import DeleteData from '../components/ModalDelete';
 import { API } from '../config/api';
 
 export default function AdminAddArtis(props) {
@@ -49,7 +50,6 @@ export default function AdminAddArtis(props) {
       const response = await API.post('/artis', formData, config);
       console.log("add artis success : ", response);
 
-      navigate('/add-music');
       Swal.fire({
         position: 'center',
         icon: 'success',
@@ -57,6 +57,9 @@ export default function AdminAddArtis(props) {
         showConfirmButton: false,
         timer: 1500
       })
+      setTimeout(function() {
+        window.location.reload();
+      }, 1000);
     } catch (error) {
       Swal.fire({
         position: 'center',
@@ -68,6 +71,56 @@ export default function AdminAddArtis(props) {
       console.log("add artis failed : ", error);
     }
   });
+  
+  // Variabel for delete product data
+  const [idDelete, setIdDelete] = useState(null);
+  const [confirmDelete, setConfirmDelete] = useState(null);
+  // Modal Confirm delete data
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  // For get id product & show modal confirm delete data
+  const handleDelete = (id) => {
+    setIdDelete(id);
+    handleShow();
+  };
+
+  const deleteById = useMutation(async (id) => {
+   try {
+    const response = await API.delete(`/artis/${id}`);
+    console.log(response)
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'Delete Success',
+      showConfirmButton: false,
+      timer: 1500
+    })
+    setTimeout(function() {
+      window.location.reload();
+    }, 1000);;
+   } catch (error) {
+     Swal.fire({
+       position: 'center',
+       icon: 'error',
+       title: 'Delete Failed',
+       showConfirmButton: false,
+       timer: 1500
+     })
+     console.log(error);
+   }
+ });
+
+ useEffect(() => {
+  if (confirmDelete) {
+    // Close modal confirm delete data
+    handleClose();
+    // execute delete data by id function
+    deleteById.mutate(idDelete);
+    setConfirmDelete(null);
+  }
+}, [confirmDelete]);
+
 
   // sort of new
   let sortArtis = []
@@ -128,7 +181,7 @@ export default function AdminAddArtis(props) {
                   <td>{item.start_career}</td>
                   <td className='col-2'>
                   <div className="flex gap-2">
-                    <Button variant="danger p-0 px-3">Delete</Button>
+                    <Button onClick={() => handleDelete(item.id)} variant="danger p-0 px-3">Delete</Button>
                     <Button variant="success p-0 px-3">Update</Button>
                   </div>
                   </td>
@@ -140,6 +193,11 @@ export default function AdminAddArtis(props) {
         </Col>
       </Row>
     </Container>
+    <DeleteData
+        setConfirmDelete={setConfirmDelete}
+        show={show}
+        handleClose={handleClose}
+    />
     </>
   )
 }

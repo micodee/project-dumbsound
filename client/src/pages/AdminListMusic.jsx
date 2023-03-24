@@ -22,17 +22,10 @@ export default function AdminListMusic(props) {
     handleShow();
   };
 
-  let { data: music, refetch } = useQuery("musicCache", async () => {
-   const response = await API.get("/musics");
-   return response.data.data;
-  });
-
   const deleteById = useMutation(async (id) => {
    try {
     const response = await API.delete(`/music/${id}`);
     console.log(response)
-     // load data seperti refresh
-     refetch()
      navigate("/list-music")
      Swal.fire({
        position: 'center',
@@ -41,6 +34,9 @@ export default function AdminListMusic(props) {
        showConfirmButton: false,
        timer: 1500
      })
+     setTimeout(function() {
+      window.location.reload();
+     }, 1000);
    } catch (error) {
      Swal.fire({
        position: 'center',
@@ -65,8 +61,8 @@ export default function AdminListMusic(props) {
 
   // sort new music
   let sortMusic = []
-  if (music != undefined) {
-    sortMusic = [...music]
+  if (props.music != undefined) {
+    sortMusic = [...props.music]
     sortMusic.sort((a,b) => b.id - a.id)
   }
   return (
@@ -96,7 +92,7 @@ export default function AdminListMusic(props) {
               </tr>
             </thead>
             <tbody>
-              {sortMusic?.map((item, index) => {
+              {props.music && sortMusic?.map((item, index) => {
                 return (
                   <tr key={item.id}>
                     <td style={{ verticalAlign: "middle", textAlign: "center", width: "30px" }}>{index + 1}</td>

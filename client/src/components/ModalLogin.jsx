@@ -52,10 +52,14 @@ export default function ModalLogin(props) {
 
       // Status check
       if (response.data.data.role === 'admin') {
-        window.location.reload();
+        setTimeout(function() {
+          window.location.reload();
+        }, 1000);
         navigate('/');
       } else if (response.data.data.role === 'user') {
-        window.location.reload();
+        setTimeout(function() {
+          window.location.reload();
+        }, 1000);
         navigate('/');
       } else {
         navigate('/')

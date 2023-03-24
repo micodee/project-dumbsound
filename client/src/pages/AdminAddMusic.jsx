@@ -96,6 +96,9 @@ export default function AdminAddMusic(props) {
         showConfirmButton: false,
         timer: 1500
       })
+      setTimeout(function() {
+        window.location.reload();
+      }, 1000);
     } catch (error) {
       Swal.fire({
         position: 'center',
