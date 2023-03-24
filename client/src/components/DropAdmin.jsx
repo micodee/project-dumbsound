@@ -55,6 +55,13 @@ const DropAdmin = () => {
               </Link>
             </Dropdown.Item>
             <Dropdown.Divider />
+            <Dropdown.Item>
+              <Link to="/list-music" className="menu">
+                <img src={`img/drop-add-music.png`} alt="list-music" />
+                List Music
+              </Link>
+            </Dropdown.Item>
+            <Dropdown.Divider />
             <Dropdown.Item onClick={logout} className="menu">
               <img src={`img/drop-logout.png`} alt="logout" />
               Logout
