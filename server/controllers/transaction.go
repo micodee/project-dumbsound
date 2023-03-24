@@ -59,7 +59,6 @@ func (h *transactionControl) CreateTransaction(c echo.Context) error {
 	transaction := models.Transaction{
 		StartDate: request.StartDate,
 		DueDate:   request.DueDate,
-		Attach:    request.Attach,
 		Status:    request.Status,
 		UserID:    int(userId),
 	}
@@ -91,9 +90,6 @@ func (h *transactionControl) UpdateTransaction(c echo.Context) error {
 	if request.DueDate != "" {
 		transaction.DueDate = request.DueDate
 	}
-	if request.Attach != "" {
-		transaction.Attach = request.Attach
-	}
 	if request.Status != "" {
 		transaction.Status = request.Status
 	}
@@ -123,9 +119,10 @@ func (h *transactionControl) DeleteTransaction(c echo.Context) error {
 func respTransaction(u models.Transaction) dto.TransactionResponse {
 	return dto.TransactionResponse{
 		ID:        u.ID,
+		UserID:    u.UserID,
 		StartDate: u.StartDate,
 		DueDate:   u.DueDate,
-		Attach:    u.Attach,
 		Status:    u.Status,
+		Active:    u.Active,
 	}
 }

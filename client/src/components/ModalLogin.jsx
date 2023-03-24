@@ -55,7 +55,7 @@ export default function ModalLogin(props) {
         setTimeout(function() {
           window.location.reload();
         }, 1000);
-        navigate('/');
+        navigate('/list-music');
       } else if (response.data.data.role === 'user') {
         setTimeout(function() {
           window.location.reload();

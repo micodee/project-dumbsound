@@ -6,16 +6,16 @@ type Transaction struct {
 	DueDate   string        `json:"due_date" gorm:"type: varchar(50)"`
 	UserID    int           `json:"user_id"`
 	User      UsersRelation `json:"user" gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
-	Attach    string        `json:"attach" gorm:"type: varchar(50)"`
 	Status    string        `json:"status" gorm:"type: varchar(20)"`
+	Active    string        `json:"active" gorm:"type: varchar(50)"`
 }
 
 type TransactionRelation struct {
 	ID        int    `json:"id" gorm:"primary_key: auto_increment" gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
 	StartDate string `json:"start_date" gorm:"type: varchar(50)"`
 	DueDate   string `json:"due_date" gorm:"type: varchar(50)"`
-	Attach    string `json:"attach" gorm:"type: varchar(50)"`
 	Status    string `json:"status" gorm:"type: varchar(20)"`
+	Active    string        `json:"active" gorm:"type: varchar(50)"`
 	UserID    int    `json:"-"`
 }
 
