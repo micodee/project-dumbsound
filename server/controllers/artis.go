@@ -71,6 +71,12 @@ func (h *artisControl) UpdateArtis(c echo.Context) error {
 		return c.JSON(http.StatusBadRequest, result.ErrorResult{Status: http.StatusBadRequest, Message: err.Error()})
 	}
 
+	validation := validator.New()
+	err := validation.Struct(request)
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, result.ErrorResult{Status: http.StatusBadRequest, Message: err.Error()})
+	}
+
 	id, _ := strconv.Atoi(c.Param("id"))
 
 	artis, err := h.ArtisRepository.GetArtis(id)

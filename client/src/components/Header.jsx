@@ -17,8 +17,8 @@ export default function Header(props) {
       <Navbar className="navbar" expand="lg" fixed={"top"} bg="transparent">
         <Container fluid className="mx-5 p-2">
           <Navbar.Brand style={{ cursor: "pointer" }} onClick={() => navigate("/")}>
-            <img src={`img/LOGO.png`} alt="icon" className="me-2" />
-            <img src={`img/DUMBSOUND.png`} alt="icon" />
+            <img src={`/img/LOGO.png`} alt="icon" className="me-2" />
+            <img src={`/img/DUMBSOUND.png`} alt="icon" />
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">

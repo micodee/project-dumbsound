@@ -7,6 +7,7 @@ import { useQuery } from "react-query"
 import Header from "../components/Header";
 import PrivateRouteUser from "./PrivateRouteUser";
 import PrivateRouteAdmin from "./PrivateRouteAdmin";
+import AdminUpdateArtis from "../pages/AdminUpdateArtis";
 
 export default function MainApp() {
   let navigate = useNavigate();
@@ -100,7 +101,8 @@ export default function MainApp() {
 
           <Route path="/" element={<PrivateRouteAdmin IsRole={state.user.role}/>}>
             <Route path="/add-music" element={<AdminAddMusic IsLogin={state.user.role} artis={artisList} />} />
-            <Route path="/add-artis" element={<AdminAddArtis IsLogin={state.user.role} artis={artisList} />} />
+            <Route path="/add-artis" element={<AdminAddArtis artis={artisList} />} />
+            <Route path="/update-artis/:id" element={<AdminUpdateArtis artis={artisList} />} />
             <Route path="/list-music" element={<AdminListMusic music={musicList} />} />
           </Route>
         </Routes>

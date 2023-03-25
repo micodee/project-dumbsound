@@ -1,33 +1,48 @@
 import React, { useEffect, useState } from 'react'
 import { Container, Row, Col, Button, Form, Table } from "react-bootstrap";
 import { useMutation } from 'react-query';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import Header from '../components/Header'
 import DeleteData from '../components/ModalDelete';
 import { API } from '../config/api';
 
-export default function AdminAddArtis(props) {
-  let navigate = useNavigate()
+export default function AdminUpdateArtis(props) {
+  let navigate = useNavigate();
+  const { id } = useParams();
 
   // form data
-  const [formAddArtis, setFormArtis] = useState({
+  const [formUpdateArtis, setUpdateArtis] = useState({
     name: "",
     old: "",
     type: "",
     start_career: "",
   });
 
-  const { name, old, type, start_career } = formAddArtis
+  async function getDataUpdate() {
+    const responArtis = await API.get('/artis/' + id);
 
-  const onChangeForm = (e) => {
-    setFormArtis({
-      ...formAddArtis,
-      [e.target.name]:
-        e.target.type === 'file' ? e.target.files : e.target.value,
+    setUpdateArtis({
+      ...formUpdateArtis,
+      name: responArtis.data.data.name,
+      old: responArtis.data.data.old,
+      type: responArtis.data.data.type,
+      start_career: responArtis.data.data.start_career,
     });
   }
 
-  const submitAddArtis = useMutation(async (e) => {
+  useEffect(() => {
+    getDataUpdate()
+  }, []);
+
+  const onChangeForm = (e) => {
+    setUpdateArtis({
+      ...formUpdateArtis,
+      [e.target.name]: e.target.value,
+    });
+  }
+
+  const submitUpdateArtis = useMutation(async (e) => {
     try {
       e.preventDefault();
 
@@ -40,19 +55,19 @@ export default function AdminAddArtis(props) {
 
       // Store data with FormData as object
       const formData = new FormData();
-      formData.set('name', formAddArtis.name);
-      formData.set('old', formAddArtis.old);
-      formData.set('type', formAddArtis.type);
-      formData.set('start_career', formAddArtis.start_career);
+      formData.set('name', formUpdateArtis.name);
+      formData.set('old', formUpdateArtis.old);
+      formData.set('type', formUpdateArtis.type);
+      formData.set('start_career', formUpdateArtis.start_career);
 
       // Insert product data
-      const response = await API.post('/artis', formData, config);
-      console.log("add artis success : ", response);
+      const response = await API.patch('/artis/' + id, formData, config);
+      console.log("update artis success : ", response);
 
       Swal.fire({
         position: 'center',
         icon: 'success',
-        title: 'Add Artis Success',
+        title: 'Update Artis Success',
         showConfirmButton: false,
         timer: 1500
       })
@@ -63,7 +78,7 @@ export default function AdminAddArtis(props) {
       Swal.fire({
         position: 'center',
         icon: 'error',
-        title: 'Add Artis Failed',
+        title: 'Update Artis Failed',
         showConfirmButton: false,
         timer: 1500
       })
@@ -97,7 +112,7 @@ export default function AdminAddArtis(props) {
     })
     setTimeout(function() {
       window.location.reload();
-    }, 1000);;
+    }, 1000);
    } catch (error) {
      Swal.fire({
        position: 'center',
@@ -111,6 +126,9 @@ export default function AdminAddArtis(props) {
  });
 
  const handleUpdate = (id) => {
+  setTimeout(function() {
+    window.location.reload();
+  }, 1000);
   navigate(`/update-artis/${id}`);
  };
 
@@ -138,23 +156,23 @@ export default function AdminAddArtis(props) {
       <Row className="d-flex justify-content-between">
         <Col className="header col-4 d-flex justify-content-center">
           <div className="col-12">
-            <h2 style={{ color: "#fff", fontWeight: "900", marginBottom: "1.5rem" }}>Add Artis</h2>
-            <Form onSubmit={(e) => submitAddArtis.mutate(e)}>
+            <h2 style={{ color: "#fff", fontWeight: "900", marginBottom: "1.5rem" }}>Update Artis</h2>
+            <Form onSubmit={(e) => submitUpdateArtis.mutate(e)}>
               <Form.Group className="mb-3">
-                <Form.Control type="text" onChange={onChangeForm} value={name} placeholder="Name" name="name" className="p-2 formInputProduct"/>
+                <Form.Control type="text" onChange={onChangeForm} value={formUpdateArtis.name} placeholder="Name" name="name" className="p-2 formInputProduct"/>
               </Form.Group>
               <Form.Group className="mb-3">
-                <Form.Control type="text" onChange={onChangeForm} value={old} placeholder="Old" name="old" className="p-2 formInputProduct"/>
+                <Form.Control type="text" onChange={onChangeForm} value={formUpdateArtis.old} placeholder="Old" name="old" className="p-2 formInputProduct"/>
               </Form.Group>
               <Form.Group className="mb-3" >
-                <Form.Control type="text" onChange={onChangeForm} value={type} placeholder="Type" name="type" className="p-2 formInputProduct"/>
+                <Form.Control type="text" onChange={onChangeForm} value={formUpdateArtis.type} placeholder="Type" name="type" className="p-2 formInputProduct"/>
               </Form.Group>
               <Form.Group className="mb-3" >
-                <Form.Control type="text" onChange={onChangeForm} value={start_career} placeholder="Start Career" name="start_career" className="p-2 formInputProduct"/>
+                <Form.Control type="text" onChange={onChangeForm} value={formUpdateArtis.start_career} placeholder="Start Career" name="start_career" className="p-2 formInputProduct"/>
               </Form.Group>
               <div className="d-flex justify-content-center" style={{ marginTop: "3rem" }}>
                 <Button variant="secondary col-5" type="submit" style={{ backgroundColor: "#EE4622", border: "none" }}>
-                  Add Artis
+                  Update Artis
                 </Button>
               </div>
             </Form>

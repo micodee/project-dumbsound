@@ -32,7 +32,7 @@ const DropUser = (props) => {
         <Dropdown className="dropdown" align="end" id="dropdown-menu-align-end">
           <Dropdown.Toggle className="profile">
             <img
-              src={`img/drop-profile.png`}
+              src={`/img/drop-profile.png`}
               alt="icon"
               style={{
                 width: "60px",
@@ -47,20 +47,20 @@ const DropUser = (props) => {
           <Dropdown.Menu>
             <Dropdown.Item>
               <Link to="/premium" className="menu">
-                <img src={`img/drop-pay.png`} alt="user" />
+                <img src={`/img/drop-pay.png`} alt="user" />
                 Premium
               </Link>
             </Dropdown.Item>
             <Dropdown.Divider />
             <Dropdown.Item>
               <Link to="/profile" className="menu">
-                <img src={`img/drop-user.png`} alt="user" />
+                <img src={`/img/drop-user.png`} alt="user" />
                 Profile
               </Link>
             </Dropdown.Item>
             <Dropdown.Divider />
             <Dropdown.Item onClick={logout} className="menu">
-              <img src={`img/drop-logout.png`} alt="logout" />
+              <img src={`/img/drop-logout.png`} alt="logout" />
               Logout
             </Dropdown.Item>
           </Dropdown.Menu>

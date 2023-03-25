@@ -28,7 +28,7 @@ const DropAdmin = () => {
         <Dropdown className="dropdown" align="end" id="dropdown-menu-align-end">
           <Dropdown.Toggle className="profile">
             <img
-              src={`img/drop-profile.png`}
+              src={`/img/drop-profile.png`}
               alt="icon"
               style={{
                 width: "60px",
