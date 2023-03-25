@@ -3,7 +3,6 @@ import { Container, Row, Col, Button, Form, Table } from "react-bootstrap";
 import { useMutation } from 'react-query';
 import { useNavigate, useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import Header from '../components/Header'
 import DeleteData from '../components/ModalDelete';
 import { API } from '../config/api';
 
@@ -46,22 +45,8 @@ export default function AdminUpdateArtis(props) {
     try {
       e.preventDefault();
 
-      // Configuration
-      const config = {
-        headers: {
-          'Content-type': 'multipart/form-data',
-        },
-      };
-
-      // Store data with FormData as object
-      const formData = new FormData();
-      formData.set('name', formUpdateArtis.name);
-      formData.set('old', formUpdateArtis.old);
-      formData.set('type', formUpdateArtis.type);
-      formData.set('start_career', formUpdateArtis.start_career);
-
       // Insert product data
-      const response = await API.patch('/artis/' + id, formData, config);
+      const response = await API.patch('/artis/' + id, formUpdateArtis);
       console.log("update artis success : ", response);
 
       Swal.fire({
@@ -162,13 +147,13 @@ export default function AdminUpdateArtis(props) {
                 <Form.Control type="text" onChange={onChangeForm} value={formUpdateArtis.name} placeholder="Name" name="name" className="p-2 formInputProduct"/>
               </Form.Group>
               <Form.Group className="mb-3">
-                <Form.Control type="text" onChange={onChangeForm} value={formUpdateArtis.old} placeholder="Old" name="old" className="p-2 formInputProduct"/>
+                <Form.Control type="number" onChange={onChangeForm} value={formUpdateArtis.old} placeholder="Old" name="old" className="p-2 formInputProduct"/>
               </Form.Group>
               <Form.Group className="mb-3" >
                 <Form.Control type="text" onChange={onChangeForm} value={formUpdateArtis.type} placeholder="Type" name="type" className="p-2 formInputProduct"/>
               </Form.Group>
               <Form.Group className="mb-3" >
-                <Form.Control type="text" onChange={onChangeForm} value={formUpdateArtis.start_career} placeholder="Start Career" name="start_career" className="p-2 formInputProduct"/>
+                <Form.Control type="number" onChange={onChangeForm} value={formUpdateArtis.start_career} placeholder="Start Career" name="start_career" className="p-2 formInputProduct"/>
               </Form.Group>
               <div className="d-flex justify-content-center" style={{ marginTop: "3rem" }}>
                 <Button variant="secondary col-5" type="submit" style={{ backgroundColor: "#EE4622", border: "none" }}>
@@ -184,7 +169,7 @@ export default function AdminUpdateArtis(props) {
             <tr className='text-center'>
               <th>#</th>
               <th>Name</th>
-              <th>Old</th>
+              <th>Age</th>
               <th>Type</th>
               <th>SC</th>
               <th>Action</th>

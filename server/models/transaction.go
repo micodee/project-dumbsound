@@ -7,7 +7,7 @@ type Transaction struct {
 	UserID     int           `json:"user_id"`
 	User       UsersRelation `json:"user" gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
 	Status     string        `json:"status" gorm:"type: varchar(20)"`
-	Active     int           `json:"active" gorm:"type: varchar(50)"`
+	Active     int           `json:"active" gorm:"type: int"`
 	TotalPrice int           `json:"total_price" gorm:"type: int"`
 }
 
@@ -16,7 +16,7 @@ type TransactionRelation struct {
 	StartDate  string `json:"start_date" gorm:"type: varchar(50)"`
 	DueDate    string `json:"due_date" gorm:"type: varchar(50)"`
 	Status     string `json:"status" gorm:"type: varchar(20)"`
-	Active     int    `json:"active" gorm:"type: varchar(50)"`
+	Active     int    `json:"active" gorm:"type: int"`
 	TotalPrice int    `json:"total_price" gorm:"type: int"`
 	UserID     int    `json:"-"`
 }

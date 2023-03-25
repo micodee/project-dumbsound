@@ -24,7 +24,7 @@ export default function UserPremium(props) {
   }, []);
 
   const [formPayment, setPayment] = useState({
-    active: 2
+    active: 1
   });
 
   const ChangePayment = (e) => {
@@ -42,7 +42,7 @@ export default function UserPremium(props) {
     };
 
     const data = {
-      active: 3
+      active: parseInt(formPayment.active)
     };
     const formDataJSON = JSON.stringify(data);
     try {

@@ -166,7 +166,7 @@ export default function AdminAddArtis(props) {
             <tr className='text-center'>
               <th>#</th>
               <th>Name</th>
-              <th>Old</th>
+              <th>Age</th>
               <th>Type</th>
               <th>SC</th>
               <th>Action</th>

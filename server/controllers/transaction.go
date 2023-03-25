@@ -95,6 +95,8 @@ func (h *transactionControl) CreateTransaction(c echo.Context) error {
 		return c.JSON(http.StatusInternalServerError, result.ErrorResult{Status: http.StatusInternalServerError, Message: err.Error()})
 	}
 
+	
+
 	// 1. Initiate Snap client
 	var s = snap.Client{}
 	s.New(os.Getenv("SERVER_KEY"), midtrans.Sandbox)
