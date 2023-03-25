@@ -5,6 +5,8 @@ import { API, setAuthToken } from "../config/api";
 import { UserContext } from "../context/contextUser";
 import { useQuery } from "react-query"
 import Header from "../components/Header";
+import PrivateRouteUser from "./PrivateRouteUser";
+import PrivateRouteAdmin from "./PrivateRouteAdmin";
 
 export default function MainApp() {
   let navigate = useNavigate();
@@ -90,11 +92,17 @@ export default function MainApp() {
       {isLoading ? null :
         <Routes>
           <Route path="/" element={<Home music={musicList} IsLogin={state.user.role} />} />
-          <Route path="/add-music" element={<AdminAddMusic IsLogin={state.user.role} artis={artisList} />} />
-          <Route path="/add-artis" element={<AdminAddArtis IsLogin={state.user.role} artis={artisList} />} />
-          <Route path="/premium" element={<UserPremium IsLogin={state.user.role} user={userList} />} />
           <Route path="/play-music/:id" element={<PlayMusic music={musicList} />} />
-          <Route path="/list-music" element={<AdminListMusic music={musicList} />} />
+          
+          <Route path="/" element={<PrivateRouteUser IsRole={state.user.role}/>}>
+            <Route path="/premium" element={<UserPremium IsLogin={state.user.role} user={userList} />} />
+          </Route>
+
+          <Route path="/" element={<PrivateRouteAdmin IsRole={state.user.role}/>}>
+            <Route path="/add-music" element={<AdminAddMusic IsLogin={state.user.role} artis={artisList} />} />
+            <Route path="/add-artis" element={<AdminAddArtis IsLogin={state.user.role} artis={artisList} />} />
+            <Route path="/list-music" element={<AdminListMusic music={musicList} />} />
+          </Route>
         </Routes>
       }
     </>
