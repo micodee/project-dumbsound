@@ -153,15 +153,18 @@ func (h *musicControl) DeleteMusic(c echo.Context) error {
 	
 		fileNameThumb := music.ThumbnailPublicID
 		fileNameMusic := music.AttachPublicID
-		delThumb, err := cld.Upload.Destroy(ctx, uploader.DestroyParams{PublicID: fileNameThumb})
 		delMusic, err := cld.Upload.Destroy(ctx, uploader.DestroyParams{PublicID: fileNameMusic})
+		delThumb, err := cld.Upload.Destroy(ctx, uploader.DestroyParams{PublicID: fileNameThumb})
 		if err != nil {
 			fmt.Println("Failed to delete file"+fileNameThumb+":", err)
+			return c.JSON(http.StatusInternalServerError, result.ErrorResult{Status: http.StatusInternalServerError, Message: err.Error()})
+		}
+		if err != nil {
 			fmt.Println("Failed to delete file"+fileNameMusic+":", err)
 			return c.JSON(http.StatusInternalServerError, result.ErrorResult{Status: http.StatusInternalServerError, Message: err.Error()})
 		}
-		fmt.Println(fileNameThumb+" deleted successfully", delThumb)
 		fmt.Println(fileNameThumb+" deleted successfully", delMusic)
+		fmt.Println(fileNameThumb+" deleted successfully", delThumb)
 
 	data, err := h.MusicRepository.DeleteMusic(music, id)
 	if err != nil {
