@@ -13,7 +13,7 @@ export default function PlayMusic(props) {
       <Container className="detail col-9">
         <Row className="flex-between">
           <Col className="header col-2">
-            <img src={`http://localhost:8000/uploads/${Product.thumbnail}`} alt={Product.tilte} className="detail-thumb" />
+            <img src={Product.thumbnail} alt={Product.tilte} className="detail-thumb" />
           </Col>
           <Col className="header col-9 flex">
             <div className="col-12">
@@ -23,7 +23,7 @@ export default function PlayMusic(props) {
               <AudioPlayer
                 className="bg-dark text-white"
                 autoPlay
-                src={`http://localhost:8000/uploads/music-1158488078.mp3`}
+                src={Product.attach}
                 layout="stacked-reverse"
               />
             </div>

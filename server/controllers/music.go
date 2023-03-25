@@ -84,11 +84,13 @@ func (h *musicControl) CreateMusic(c echo.Context) error {
 
 	// data form pattern submit to pattern entity db music
 	music := models.Music{
-		Title:     request.Title,
-		Year:      request.Year,
-		Thumbnail: cloudThumb.SecureURL,
-		Attach:    cloudMusic.SecureURL,
-		ArtisID:   request.ArtisID,
+		Title:             request.Title,
+		Year:              request.Year,
+		Thumbnail:         cloudThumb.SecureURL,
+		ThumbnailPublicID: cloudThumb.PublicID,
+		Attach:            cloudMusic.SecureURL,
+		AttachPublicID:    cloudMusic.PublicID,
+		ArtisID:           request.ArtisID,
 	}
 
 	data, err := h.MusicRepository.CreateMusic(music)
@@ -135,12 +137,32 @@ func (h *musicControl) UpdateMusic(c echo.Context) error {
 func (h *musicControl) DeleteMusic(c echo.Context) error {
 	id, _ := strconv.Atoi(c.Param("id"))
 
-	user, err := h.MusicRepository.GetMusics(id)
+	music, err := h.MusicRepository.GetMusics(id)
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, result.ErrorResult{Status: http.StatusBadRequest, Message: err.Error()})
 	}
 
-	data, err := h.MusicRepository.DeleteMusic(user, id)
+		// cloudinary
+		var ctx = context.Background()
+		var CLOUD_NAME = os.Getenv("CLOUD_NAME")
+		var API_KEY = os.Getenv("API_KEY")
+		var API_SECRET = os.Getenv("API_SECRET")
+	
+		// create a new cloudinary
+		cld, _ := cloudinary.NewFromParams(CLOUD_NAME, API_KEY, API_SECRET)
+	
+		fileNameThumb := music.ThumbnailPublicID
+		fileNameMusic := music.AttachPublicID
+		delThumb, err := cld.Upload.Destroy(ctx, uploader.DestroyParams{PublicID: fileNameThumb})
+		delMusic, err := cld.Upload.Destroy(ctx, uploader.DestroyParams{PublicID: fileNameMusic})
+		if err != nil {
+			fmt.Println("Failed to delete file"+fileNameThumb+":", err)
+			return c.JSON(http.StatusInternalServerError, result.ErrorResult{Status: http.StatusInternalServerError, Message: err.Error()})
+		}
+		fmt.Println(fileNameThumb+" deleted successfully", delThumb)
+		fmt.Println(fileNameThumb+" deleted successfully", delMusic)
+
+	data, err := h.MusicRepository.DeleteMusic(music, id)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, result.ErrorResult{Status: http.StatusInternalServerError, Message: err.Error()})
 	}

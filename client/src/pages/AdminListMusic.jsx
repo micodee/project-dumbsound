@@ -97,7 +97,7 @@ export default function AdminListMusic(props) {
                   <tr key={item.id}>
                     <td style={{ verticalAlign: "middle", textAlign: "center", width: "30px" }}>{index + 1}</td>
                     <td style={{ verticalAlign: "middle", width: "20px" }}>
-                     <img src={`http://localhost:8000/uploads/${item.thumbnail}`} alt="thumb" style={{ width: "40px", height: "40px", objectFit: "cover" }} />
+                     <img src={item.thumbnail} alt="thumb" style={{ width: "40px", height: "40px", objectFit: "cover" }} />
                     </td>
                     <td style={{ verticalAlign: "middle" }}>{item.title}</td>
                     <td className="text-center" style={{ verticalAlign: "middle", width: "80px" }}>{item.year}</td>

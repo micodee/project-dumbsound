@@ -1,11 +1,13 @@
 package dto
 
 type MusicResponse struct {
-	ID        int    `json:"id"`
-	Title     string `json:"title"`
-	Year      int    `json:"year"`
-	Thumbnail string `json:"thumbnail"`
-	Attach    string `json:"attach"`
+	ID                int    `json:"id"`
+	Title             string `json:"title"`
+	Year              int    `json:"year"`
+	Thumbnail         string `json:"thumbnail"`
+	ThumbnailPublicID string `json:"thumb_public_id"`
+	Attach            string `json:"attach"`
+	AttachPublicID    string `json:"attach_public_id"`
 }
 
 type CreateMusicRequest struct {

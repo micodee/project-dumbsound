@@ -30,7 +30,7 @@ export default function Home(props) {
             <Card key={item.id} className="card-music" 
             onClick={() => props.IsLogin != null ? navigate(`/play-music/${item?.id}`) : setModalLogin(true)}
             >
-              <Card.Img variant="top" src={`http://localhost:8000/uploads/${item.thumbnail}`} className="thumbnail" />
+              <Card.Img variant="top" src={item.thumbnail} className="thumbnail" />
               <Card.Body style={{ padding: "0" }}>
                 <Card.Title className="title flex-between">
                   {item.title}
