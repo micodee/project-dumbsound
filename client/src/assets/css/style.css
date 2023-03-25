@@ -33,6 +33,14 @@ p {
   display: grid;
 }
 
+.colorblack {
+  color: black;
+}
+
+.colorwhite {
+  color: white;
+}
+
 .navbar .register {
   background-color: #EE4622;
   color: #fff;

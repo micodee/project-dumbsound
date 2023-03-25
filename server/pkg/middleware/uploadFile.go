@@ -58,9 +58,8 @@ func UploadFile(next echo.HandlerFunc) echo.HandlerFunc {
 			}
 
 			data := tempFile.Name()
-			filename := data[8:] // split uploads/
 
-			c.Set("image", filename)
+			c.Set("image", data)
 		} else {
 			return c.JSON(http.StatusBadRequest, "The file extension is wrong. Allowed file extensions are images (.png, .jpg, .jpeg, .webp)")
 		}
@@ -84,9 +83,8 @@ func UploadFile(next echo.HandlerFunc) echo.HandlerFunc {
 			}
 
 			data := tempFile.Name()
-			filename := data[8:] // split uploads/
 
-			c.Set("music", filename)
+			c.Set("music", data)
 		} else {
 			return c.JSON(http.StatusBadRequest, "The file extension is wrong. Allowed file extensions are audio files (.mp3, .wav, .flac, .m4a)")
 		}

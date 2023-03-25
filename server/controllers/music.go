@@ -1,14 +1,18 @@
 package controllers
 
 import (
+	"context"
 	"dumbsound/dto"
 	"dumbsound/dto/result"
 	"dumbsound/models"
 	"dumbsound/repositories"
 	"fmt"
 	"net/http"
+	"os"
 	"strconv"
 
+	"github.com/cloudinary/cloudinary-go/v2"
+	"github.com/cloudinary/cloudinary-go/v2/api/uploader"
 	"github.com/go-playground/validator/v10"
 	"github.com/labstack/echo/v4"
 )
@@ -64,12 +68,26 @@ func (h *musicControl) CreateMusic(c echo.Context) error {
 		return c.JSON(http.StatusBadRequest, result.ErrorResult{Status: http.StatusBadRequest, Message: err.Error()})
 	}
 
+	// cloudinary
+	var ctx = context.Background()
+	var CLOUD_NAME = os.Getenv("CLOUD_NAME")
+	var API_KEY = os.Getenv("API_KEY")
+	var API_SECRET = os.Getenv("API_SECRET")
+
+	// cloudinary
+	cld, _ := cloudinary.NewFromParams(CLOUD_NAME, API_KEY, API_SECRET)
+	cloudThumb, err := cld.Upload.Upload(ctx, fileImage, uploader.UploadParams{Folder: "dumbsound/thumbnail"})
+	cloudMusic, err := cld.Upload.Upload(ctx, fileMusic, uploader.UploadParams{Folder: "dumbsound/music"})
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+
 	// data form pattern submit to pattern entity db music
 	music := models.Music{
 		Title:     request.Title,
 		Year:      request.Year,
-		Thumbnail: request.Thumbnail,
-		Attach:    request.Attach,
+		Thumbnail: cloudThumb.SecureURL,
+		Attach:    cloudMusic.SecureURL,
 		ArtisID:   request.ArtisID,
 	}
 

@@ -64,7 +64,7 @@ export default function AdminAddArtis(props) {
       Swal.fire({
         position: 'center',
         icon: 'error',
-        title: 'Add Music Failed',
+        title: 'Add Artis Failed',
         showConfirmButton: false,
         timer: 1500
       })

@@ -78,9 +78,13 @@ export default function ModalRegister(props) {
             <Form.Group className="mb-3">
               <Form.Control type="text" placeholder="Fullname" name="fullname" onChange={ChangeRegister} value={fullname} required />
             </Form.Group>
-            <Form.Group className="mb-3">
-              <Form.Control type="text" placeholder="Gender" name="gender" onChange={ChangeRegister} value={gender} required />
-            </Form.Group>
+            <Form.Group className="mb-3" >
+                <Form.Select onChange={ChangeRegister} value={gender} name="gender" className="p-2 formInputProduct" required>
+                <option value="null" selected className='colorwhite' disabled>Gender</option>
+                <option value="Pria" className='colorblack'>Pria</option>
+                <option value="Perempuan" className='colorblack'>Perempuan</option>
+              </Form.Select>
+              </Form.Group>
             <Form.Group className="mb-3">
               <Form.Control type="text" placeholder="Phone" name="phone" onChange={ChangeRegister} value={phone} required />
             </Form.Group>
