@@ -157,6 +157,7 @@ func (h *musicControl) DeleteMusic(c echo.Context) error {
 		delMusic, err := cld.Upload.Destroy(ctx, uploader.DestroyParams{PublicID: fileNameMusic})
 		if err != nil {
 			fmt.Println("Failed to delete file"+fileNameThumb+":", err)
+			fmt.Println("Failed to delete file"+fileNameMusic+":", err)
 			return c.JSON(http.StatusInternalServerError, result.ErrorResult{Status: http.StatusInternalServerError, Message: err.Error()})
 		}
 		fmt.Println(fileNameThumb+" deleted successfully", delThumb)
