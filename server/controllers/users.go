@@ -16,6 +16,7 @@ import (
 	"github.com/cloudinary/cloudinary-go/v2/api/uploader"
 	"github.com/golang-jwt/jwt/v4"
 	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 )
 
 // SETUP CONTROL STRUC
@@ -54,14 +55,22 @@ func (h *userControl) GetUser(c echo.Context) error {
 }
 
 func (h *userControl) UpdateUser(c echo.Context) error {
+	e := echo.New()
+
+	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
+		AllowOrigins: []string{"*"},
+		AllowMethods: []string{echo.GET, echo.POST, echo.PUT, echo.PATCH, echo.DELETE, echo.OPTIONS},
+		AllowHeaders: []string{"X-Requested-With", "Content-Type", "Authorization"},
+	}))
+
 	filePP := c.Get("photo_profile").(string)
 
 	request := dto.UpdateUserRequest{
-		Name: c.FormValue("fullname"),
-		Email: c.FormValue("email"),
-		Gender: c.FormValue("gender"),
-		Phone: c.FormValue("phone"),
-		Address: c.FormValue("address"),
+		Name:         c.FormValue("fullname"),
+		Email:        c.FormValue("email"),
+		Gender:       c.FormValue("gender"),
+		Phone:        c.FormValue("phone"),
+		Address:      c.FormValue("address"),
 		PhotoProfile: filePP,
 	}
 

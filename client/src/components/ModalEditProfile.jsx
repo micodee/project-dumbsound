@@ -20,7 +20,7 @@ export default function ModalEditProfile(props) {
     const [urlImage, setUrlImage] = useState("Choose Profile");
 
     async function getDataUpdate() {
-      const respUser = await API.get('/user');
+      const respUser = await API.get('/check-auth');
       setUrlImage(respUser.data.data.photo_profile);
   
       setFormProfile({
