@@ -162,7 +162,7 @@ func SendMail(status string, transaction models.Transaction) {
 	if status != transaction.Status && (status == "success") {
 		var CONFIG_SMTP_HOST = "smtp.gmail.com"
 		var CONFIG_SMTP_PORT = 587
-		var CONFIG_SENDER_NAME = "Dumbsound <dumbsound.admin@gmail.com>"
+		var CONFIG_SENDER_NAME = "DumbSound <dumbsound.admin@gmail.com>"
 		var CONFIG_AUTH_EMAIL = os.Getenv("EMAIL_SYSTEM")
 		var CONFIG_AUTH_PASSWORD = os.Getenv("PASSWORD_SYSTEM")
 
@@ -189,14 +189,15 @@ func SendMail(status string, transaction models.Transaction) {
 					<body>
 					<h2>Product payment :</h2>
 					<ul style="list-style-type:none;">
-							<li>Name : <b>%s</b></li>
-							<li>Email : <b>%s</b></li>
-							<li>Active : <b>%s</b></li>
+							<li>Name : %s</li>
+							<li>Email : %s</li>
+							<li>Active : <b>%s</b> Days</li>
+							<li>Due Date : <b>%s</b></li>
 							<li>Total payment: Rp.%s</li>
 							<li>Status : <b>%s</b></li>
 					</ul>
 					</body>
-			</html>`, transaction.User.Fullname, transaction.User.Email, isActive, totalPrice, status))
+			</html>`, transaction.User.Fullname, transaction.User.Email, isActive, transaction.DueDate, totalPrice, status))
 
 		dialer := gomail.NewDialer(
 			CONFIG_SMTP_HOST,

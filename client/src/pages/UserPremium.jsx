@@ -63,7 +63,7 @@ export default function UserPremium(props) {
             total_price: formPayment.total_price,
             status: "success",
             user: {id:props.user.id},
-            fullname: formPayment.fullname,
+            name: formPayment.fullname,
             email: formPayment.email,
           }
           response([newTransactionData]);
