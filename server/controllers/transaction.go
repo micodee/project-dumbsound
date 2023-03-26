@@ -95,7 +95,7 @@ func (h *transactionControl) CreateTransaction(c echo.Context) error {
 		return c.JSON(http.StatusInternalServerError, result.ErrorResult{Status: http.StatusInternalServerError, Message: err.Error()})
 	}
 
-	
+
 
 	// 1. Initiate Snap client
 	var s = snap.Client{}
@@ -170,6 +170,7 @@ func SendMail(status string, transaction models.Transaction) {
 		var CONFIG_AUTH_PASSWORD = os.Getenv("PASSWORD_SYSTEM")
 
 		var totalPrice = strconv.Itoa(transaction.TotalPrice)
+		var isActive = strconv.Itoa(transaction.Active)
 
 		mailer := gomail.NewMessage()
 		mailer.SetHeader("From", CONFIG_SENDER_NAME)
@@ -191,11 +192,12 @@ func SendMail(status string, transaction models.Transaction) {
 					<body>
 					<h2>Product payment :</h2>
 					<ul style="list-style-type:none;">
+							<li>Active : <b>%s</b></li>
 							<li>Total payment: Rp.%s</li>
 							<li>Status : <b>%s</b></li>
 					</ul>
 					</body>
-			</html>`, totalPrice, status))
+			</html>`, isActive, totalPrice, status))
 
 		dialer := gomail.NewDialer(
 			CONFIG_SMTP_HOST,

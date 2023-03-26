@@ -144,7 +144,7 @@ export default function AdminAddMusic(props) {
               </Form.Group>
               <Form.Group className="mb-3" >
                 <Form.Select onChange={onChangeForm} value={artis_id} name="artis_id" className="p-2 formInputProduct">
-                <option disabled value="">Singer</option>
+                <option hidden>Singer</option>
                 {props.artis?.map ((item) => {
                   return (
                     <>

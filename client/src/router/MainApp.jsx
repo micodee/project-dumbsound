@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
-import { AdminAddArtis, AdminAddMusic, AdminListMusic, Home, PlayMusic, UserPremium } from "../pages";
+import { AdminAddArtis, AdminAddMusic, AdminListMusic, Home, PlayMusic, UserPremium, UserProfile } from "../pages";
 import { API, setAuthToken } from "../config/api";
 import { UserContext } from "../context/contextUser";
 import { useQuery } from "react-query"
@@ -8,6 +8,7 @@ import Header from "../components/Header";
 import PrivateRouteUser from "./PrivateRouteUser";
 import PrivateRouteAdmin from "./PrivateRouteAdmin";
 import AdminUpdateArtis from "../pages/AdminUpdateArtis";
+import AdminListIncome from "../pages/AdminListIncome";
 
 export default function MainApp() {
   let navigate = useNavigate();
@@ -97,6 +98,7 @@ export default function MainApp() {
           
           <Route path="/" element={<PrivateRouteUser IsRole={state.user.role}/>}>
             <Route path="/premium" element={<UserPremium IsLogin={state.user.role} user={userList} />} />
+            <Route path="/profile" element={<UserProfile />} />
           </Route>
 
           <Route path="/" element={<PrivateRouteAdmin IsRole={state.user.role}/>}>
@@ -104,6 +106,7 @@ export default function MainApp() {
             <Route path="/add-artis" element={<AdminAddArtis artis={artisList} />} />
             <Route path="/update-artis/:id" element={<AdminUpdateArtis artis={artisList} />} />
             <Route path="/list-music" element={<AdminListMusic music={musicList} />} />
+            <Route path="/list-income" element={<AdminListIncome music={musicList} />} />
           </Route>
         </Routes>
       }
