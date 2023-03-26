@@ -78,29 +78,42 @@ export default function UserPremium(props) {
             showConfirmButton: false,
             timer: 1500
           })
+          navigate("/profile");
           setTimeout(function() {
             window.location.reload();
           }, 1000);
-          navigate("/profile");
         },
         onPending: function (result) {
           /* You may add your own implementation here */
           console.log(result);
           navigate("/profile");
+          setTimeout(function() {
+            window.location.reload();
+          }, 1000);
         },
         onError: function (result) {
           const newTransactionData = {
             status: "failed",
+            id: response.length + 1,
+            user: {id:props.user.id}
           }
           response([newTransactionData]);
           console.log(result);
           navigate("/profile");
+          setTimeout(function() {
+            window.location.reload();
+          }, 1000);
         },
         onClose: function () {
           const newTransactionData = {
             status: "failed",
+            id: response.length + 1,
+            user: {id:props.user.id}
           }
           response([newTransactionData]);
+          setTimeout(function() {
+            window.location.reload();
+          }, 1000);
           alert("you closed the popup without finishing the payment");
         },
       });
