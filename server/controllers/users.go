@@ -1,14 +1,19 @@
 package controllers
 
 import (
+	"context"
 	"dumbsound/dto"
 	"dumbsound/dto/result"
 	"dumbsound/models"
 	"dumbsound/pkg/bcrypt"
 	"dumbsound/repositories"
+	"fmt"
 	"net/http"
+	"os"
 	"strconv"
 
+	"github.com/cloudinary/cloudinary-go/v2"
+	"github.com/cloudinary/cloudinary-go/v2/api/uploader"
 	"github.com/golang-jwt/jwt/v4"
 	"github.com/labstack/echo/v4"
 )
@@ -48,18 +53,11 @@ func (h *userControl) GetUser(c echo.Context) error {
 }
 
 func (h *userControl) UpdateUser(c echo.Context) error {
+	filePP := c.Get("photo_profile").(string)
+
 	request := new(dto.UpdateUserRequest)
 	if err := c.Bind(&request); err != nil {
 		return c.JSON(http.StatusBadRequest, result.ErrorResult{Status: http.StatusBadRequest, Message: err.Error()})
-	}
-
-	// check if email is exist
-	checkUserMail, err := h.AuthRepository.Login(request.Email)
-	if err != nil && (err.Error() != "record not found") {
-		return c.JSON(http.StatusBadRequest, result.ErrorResult{Status: http.StatusBadRequest, Message: err.Error()})
-	}
-	if checkUserMail.ID != 0 {
-		return c.JSON(http.StatusBadRequest, result.ErrorResult{Status: http.StatusBadRequest, Message: "Email already exists"})
 	}
 
 	// get user FROM JWT TOKEN
@@ -85,6 +83,36 @@ func (h *userControl) UpdateUser(c echo.Context) error {
 
 	if request.Password != "" {
 		user.Password = password
+	}
+
+	if request.Gender != "" {
+		user.Gender = request.Gender
+	}
+
+	if request.Phone != "" {
+		user.Phone = request.Phone
+	}
+
+	if request.Address != "" {
+		user.Address = request.Address
+	}
+
+	if filePP != "" {
+		// cloudinary
+		var ctx = context.Background()
+		var CLOUD_NAME = os.Getenv("CLOUD_NAME")
+		var API_KEY = os.Getenv("API_KEY")
+		var API_SECRET = os.Getenv("API_SECRET")
+
+		// cloudinary upload new image
+		cld, _ := cloudinary.NewFromParams(CLOUD_NAME, API_KEY, API_SECRET)
+		resp, err := cld.Upload.Upload(ctx, filePP, uploader.UploadParams{Folder: "dumbsound/profile"})
+		if err != nil {
+			fmt.Println(err.Error())
+		}
+		fmt.Println(resp.SecureURL + " update successfully")
+		
+		user.PhotoProfile = resp.SecureURL
 	}
 
 	data, err := h.UserRepository.UpdateUser(user)

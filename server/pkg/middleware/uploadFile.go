@@ -14,6 +14,7 @@ func UploadFile(next echo.HandlerFunc) echo.HandlerFunc {
 		var method = c.Request().Method
 		fileImg, imageErr := c.FormFile("thumbnail")
 		fileMusic, musicErr := c.FormFile("attach")
+		filePP, ppErr := c.FormFile("photo_profile")
 
 		if imageErr != nil {
 			if method == "PATCH" && imageErr.Error() == "http: no such file" {
@@ -37,6 +38,18 @@ func UploadFile(next echo.HandlerFunc) echo.HandlerFunc {
 				return next(c)
 			}
 			return c.JSON(http.StatusBadRequest, musicErr.Error())
+		}
+
+		if ppErr != nil {
+			if method == "PATCH" && ppErr.Error() == "http: no such file" {
+				c.Set("photo_profile", "")
+				return next(c)
+			}
+			if method == "POST" && ppErr.Error() == "http: no such file" {
+				c.Set("photo_profile", "")
+				return next(c)
+			}
+			return c.JSON(http.StatusBadRequest, ppErr.Error())
 		}
 
 		img := filepath.Ext(fileImg.Filename)
@@ -88,6 +101,32 @@ func UploadFile(next echo.HandlerFunc) echo.HandlerFunc {
 		} else {
 			return c.JSON(http.StatusBadRequest, "The file extension is wrong. Allowed file extensions are audio files (.mp3, .wav, .flac, .m4a)")
 		}
+
+		PP := filepath.Ext(filePP.Filename)
+		if PP == ".png" || PP == ".jpg" || PP == ".jpeg" || PP == ".webp" {
+			src, ppErr := filePP.Open()
+			if ppErr != nil {
+				return c.JSON(http.StatusBadRequest, ppErr)
+			}
+			defer src.Close()
+
+			tempFile, ppErr := ioutil.TempFile("uploads", "image-*.png")
+			if ppErr != nil {
+				return c.JSON(http.StatusBadRequest, ppErr)
+			}
+			defer tempFile.Close()
+
+			if _, ppErr = io.Copy(tempFile, src); ppErr != nil {
+				return c.JSON(http.StatusBadRequest, ppErr)
+			}
+
+			data := tempFile.Name()
+
+			c.Set("image", data)
+		} else {
+			return c.JSON(http.StatusBadRequest, "The file extension is wrong. Allowed file extensions are images (.png, .jpg, .jpeg, .webp)")
+		}
+
 		return next(c)
 	}
 }
