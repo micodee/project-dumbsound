@@ -1,7 +1,9 @@
-import React from 'react'
-import { Container, Row, Col, Button, Form, Table } from "react-bootstrap";
+import React, { useState } from 'react'
+import { Container, Row, Col, Button } from "react-bootstrap";
+import { ModalEditProfile } from '../components';
 
-export default function UserProfile() {
+export default function UserProfile(props) {
+  const [showEdit, setModalEdit] = useState(false);
   return (
     <>
       <Container className="detail col-9 productadd">
@@ -12,7 +14,7 @@ export default function UserProfile() {
               <div className='col-10'>
                 <img src={`/img/music10.png`} alt="preview-image" className='preview-image'/>
                 <div className="d-flex justify-content-center" style={{ marginTop: "2rem" }}>
-                  <Button variant="secondary col-7" type="submit" style={{ backgroundColor: "#EE4622", border: "none" }}>
+                  <Button variant="secondary col-7" onClick={() => setModalEdit(true)} style={{ backgroundColor: "#EE4622", border: "none" }}>
                     Edit Profile
                   </Button>
                 </div>
@@ -21,15 +23,15 @@ export default function UserProfile() {
             <div className="col-8">
               <h2 style={{ color: "#fff", fontWeight: "900", marginBottom: "1.5rem", fontSize: "24px", }}>Personal Info</h2>
               <p style={{ color: "#D2D2D2" }}>Fullname : </p>
-              <h5>Tommy Marcelino Hidayat</h5>
+              <h5 style={{ textTransform: "capitalize" }}>{props.user.fullname}</h5>
               <p style={{ color: "#D2D2D2" }}>Email : </p>
-              <h5>marcel@gmail.com</h5>
+              <h5>{props.user.email}</h5>
               <p style={{ color: "#D2D2D2" }}>Phone : </p>
-              <h5>0822522330212</h5>
+              <h5>{props.user.phone}</h5>
               <p style={{ color: "#D2D2D2" }}>Address : </p>
-              <h5>wakanda</h5>
+              <h5 style={{ textTransform: "capitalize" }}>{props.user.address}</h5>
               <p style={{ color: "#D2D2D2" }}>Gender : </p>
-              <h5>Pria</h5>
+              <h5>{props.user.gender}</h5>
             </div>
           </div>
         </Col>
@@ -56,13 +58,14 @@ export default function UserProfile() {
             </div>
            </div>
            <div className="d-flex justify-content-center align-items-center flex-column col-3">
-           <div style = {{ backgroundColor: "#f7dec4", width: "112px", height: "19px", fontSize: "10px", color: "#FF9900"}} className="flex">pending</div>
+           <div style = {{ backgroundColor: "#fff", width: "112px", height: "19px", fontSize: "10px", color: "#FF9900"}} className="flex">pending</div>
            </div>
           </div>
           </div>
         </Col>
       </Row>
     </Container>
+    <ModalEditProfile show={showEdit} hide={setModalEdit}/>
     </>
   )
 }

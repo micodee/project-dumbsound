@@ -24,7 +24,8 @@ export default function UserPremium(props) {
   }, []);
 
   const [formPayment, setPayment] = useState({
-    active: 1
+    active: 1,
+    total_price: 2500
   });
 
   const ChangePayment = (e) => {
@@ -42,7 +43,8 @@ export default function UserPremium(props) {
     };
 
     const data = {
-      active: parseInt(formPayment.active)
+      active: parseInt(formPayment.active),
+      total_price: parseInt(formPayment.total_price)
     };
     const formDataJSON = JSON.stringify(data);
     try {
@@ -56,6 +58,7 @@ export default function UserPremium(props) {
           const newTransactionData = {
             id: response.length + 1,
             active: formPayment.active,
+            total_price: formPayment.total_price,
             status: "success",
             user: {id:props.user.id},
           }
@@ -133,7 +136,7 @@ export default function UserPremium(props) {
               <Card.Body style={{ padding: "0" }}>
                <Form onSubmit={(e) => handleBuy.mutate(e)}>
                 <Card.Title className="title flex-between">
-                  <Form.Control hidden type="text" value="price" name="price"/>
+                  <Form.Control hidden type="text" onChange={ChangePayment} value={formPayment.total_price = 2500} name="total_price"/>
                   Rp. 2.500
                   <Form.Control hidden type="text" onChange={ChangePayment} value={formPayment.active = 1} name="active"/>
                   <p style={{ fontSize: "14px" }}>/ days</p>
@@ -150,8 +153,11 @@ export default function UserPremium(props) {
               <Card.Text className="paket">STANDARD</Card.Text>
               <Card.Img variant="top" src={`/img/music10.png`} className="thumbnail" />
               <Card.Body style={{ padding: "0" }}>
+              <Form onSubmit={(e) => handleBuy.mutate(e)}>
                 <Card.Title className="title flex-between">
+                  <Form.Control hidden type="text" onChange={ChangePayment} value={formPayment.total_price = 25000} name="total_price"/>
                   Rp. 25.000
+                  <Form.Control hidden type="text" onChange={ChangePayment} value={formPayment.active = 30} name="active"/>
                   <p style={{ fontSize: "14px" }}>/ 30 days</p>
                 </Card.Title>
                 <Card.Text>
@@ -159,14 +165,18 @@ export default function UserPremium(props) {
                   Pay
                 </Button>
                 </Card.Text>
+                </Form>
               </Card.Body>
             </Card>
             <Card className="card-music">
               <Card.Text className="paket">PROFESSIONAL</Card.Text>
               <Card.Img variant="top" src={`/img/music10.png`} className="thumbnail" />
               <Card.Body style={{ padding: "0" }}>
+                <Form onSubmit={(e) => handleBuy.mutate(e)}>
                 <Card.Title className="title flex-between">
+                  <Form.Control hidden type="text" onChange={ChangePayment} value={formPayment.total_price = 50000} name="total_price"/>
                   Rp. 50.000
+                  <Form.Control hidden type="text" onChange={ChangePayment} value={formPayment.active = 90} name="active"/>
                   <p style={{ fontSize: "14px" }}>/ 90 days</p>
                 </Card.Title>
                 <Card.Text>
@@ -174,6 +184,7 @@ export default function UserPremium(props) {
                   Pay
                 </Button>
                 </Card.Text>
+                </Form>
               </Card.Body>
             </Card>
             <Card className="card-music">

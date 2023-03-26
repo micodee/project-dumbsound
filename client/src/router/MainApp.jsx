@@ -98,7 +98,7 @@ export default function MainApp() {
           
           <Route path="/" element={<PrivateRouteUser IsRole={state.user.role}/>}>
             <Route path="/premium" element={<UserPremium IsLogin={state.user.role} user={userList} music={musicList} />} />
-            <Route path="/profile" element={<UserProfile />} />
+            <Route path="/profile" element={<UserProfile user={userList} />} />
           </Route>
 
           <Route path="/" element={<PrivateRouteAdmin IsRole={state.user.role}/>}>
