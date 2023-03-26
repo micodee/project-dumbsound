@@ -12,7 +12,7 @@ type UserResponse struct {
 }
 
 type UpdateUserRequest struct {
-	Name         string `json:"name" form:"name"`
+	Name         string `json:"fullname" form:"fullname"`
 	Email        string `json:"email" form:"email"`
 	Password     string `json:"password" form:"password"`
 	Gender       string `json:"gender" form:"gender"`

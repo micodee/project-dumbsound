@@ -55,9 +55,13 @@ func (h *userControl) GetUser(c echo.Context) error {
 func (h *userControl) UpdateUser(c echo.Context) error {
 	filePP := c.Get("photo_profile").(string)
 
-	request := new(dto.UpdateUserRequest)
-	if err := c.Bind(&request); err != nil {
-		return c.JSON(http.StatusBadRequest, result.ErrorResult{Status: http.StatusBadRequest, Message: err.Error()})
+	request := dto.UpdateUserRequest{
+		Name: c.FormValue("fullname"),
+		Email: c.FormValue("email"),
+		Gender: c.FormValue("gender"),
+		Phone: c.FormValue("phone"),
+		Address: c.FormValue("address"),
+		PhotoProfile: filePP,
 	}
 
 	// get user FROM JWT TOKEN
