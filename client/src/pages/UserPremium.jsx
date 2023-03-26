@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Card, Row } from "react-bootstrap";
 import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -125,6 +125,74 @@ export default function UserPremium(props) {
             </Button>
           </div>
         </Form>
+          <div className="premiumCard">
+          <Row className="music grid">
+            <Card className="card-music">
+              <Card.Text className="paket">BASIC</Card.Text>
+              <Card.Img variant="top" src={`/img/music10.png`} className="thumbnail" />
+              <Card.Body style={{ padding: "0" }}>
+               <Form onSubmit={(e) => handleBuy.mutate(e)}>
+                <Card.Title className="title flex-between">
+                  <Form.Control hidden type="text" value="price" name="price"/>
+                  Rp. 2.500
+                  <Form.Control hidden type="text" onChange={ChangePayment} value={formPayment.active = 1} name="active"/>
+                  <p style={{ fontSize: "14px" }}>/ days</p>
+                </Card.Title>
+                <Card.Text>
+                <Button variant="secondary col-12" type="submit" style={{ backgroundColor: "#F58033", border: "none" }}>
+                  Pay
+                </Button>
+                </Card.Text>
+                </Form>
+              </Card.Body>
+            </Card>
+            <Card className="card-music">
+              <Card.Text className="paket">STANDARD</Card.Text>
+              <Card.Img variant="top" src={`/img/music10.png`} className="thumbnail" />
+              <Card.Body style={{ padding: "0" }}>
+                <Card.Title className="title flex-between">
+                  Rp. 25.000
+                  <p style={{ fontSize: "14px" }}>/ 30 days</p>
+                </Card.Title>
+                <Card.Text>
+                <Button variant="secondary col-12" type="submit" style={{ backgroundColor: "#F58033", border: "none" }}>
+                  Pay
+                </Button>
+                </Card.Text>
+              </Card.Body>
+            </Card>
+            <Card className="card-music">
+              <Card.Text className="paket">PROFESSIONAL</Card.Text>
+              <Card.Img variant="top" src={`/img/music10.png`} className="thumbnail" />
+              <Card.Body style={{ padding: "0" }}>
+                <Card.Title className="title flex-between">
+                  Rp. 50.000
+                  <p style={{ fontSize: "14px" }}>/ 90 days</p>
+                </Card.Title>
+                <Card.Text>
+                <Button variant="secondary col-12" type="submit" style={{ backgroundColor: "#F58033", border: "none" }}>
+                  Pay
+                </Button>
+                </Card.Text>
+              </Card.Body>
+            </Card>
+            <Card className="card-music">
+              <Card.Text className="paket">ENTERPRISE</Card.Text>
+              <Card.Img variant="top" src={`/img/music10.png`} className="thumbnail" />
+              <Card.Body style={{ padding: "0" }}>
+                <Card.Title className="title flex-between">
+                  Rp. 150.000
+                  <p style={{ fontSize: "14px" }}>/ 360 days</p>
+                </Card.Title>
+                <Card.Text>
+                <Button variant="secondary col-12" type="submit" style={{ backgroundColor: "#F58033", border: "none" }}>
+                  Pay
+                </Button>
+                </Card.Text>
+              </Card.Body>
+            </Card>
+          </Row>
+          </div>
       </div>
     </>
   );

@@ -77,15 +77,12 @@ func (h *transactionControl) CreateTransaction(c echo.Context) error {
 		}
 	}
 
-	// total price
-	totalPrice := 3000
-
 	// data form pattern submit to pattern entity db transaction
 	transaction := models.Transaction{
 		ID:         transactionId,
 		StartDate:  sDate,
 		Status:     "pending",
-		TotalPrice: totalPrice,
+		TotalPrice: request.TotalPrice,
 		Active:     request.Active,
 		UserID:     int(userId),
 	}
