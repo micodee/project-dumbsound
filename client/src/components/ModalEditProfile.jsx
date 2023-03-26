@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Form, Modal } from "react-bootstrap"
 import Swal from 'sweetalert2'
 
@@ -8,17 +8,35 @@ import { API } from "../config/api";
 export default function ModalEditProfile(props) {
   const [formProfile, setFormProfile] = useState({
     email: '',
-    password: '',
     fullname: '',
     gender: '',
     phone: '',
     address: '',
-    photo: '',
+    photo_profile: '',
     });
   
-    const { email, password, fullname, gender, phone, address } = formProfile;
+    const { email, fullname, gender, phone, address } = formProfile;
 
     const [urlImage, setUrlImage] = useState("Choose Profile");
+
+    async function getDataUpdate() {
+      const respUser = await API.get('/user');
+      setUrlImage(respUser.data.data.photo_profile);
+  
+      setFormProfile({
+        ...formProfile,
+        fullname: respUser.data.data.fullname,
+        email: respUser.data.data.email,
+        gender: respUser.data.data.gender,
+        phone: respUser.data.data.phone,
+        address: respUser.data.data.address,
+      });
+    }
+  
+    useEffect(() => {
+      getDataUpdate()
+    }, []);
+
 
     const onChangeProfile = (e) => {
       setFormProfile({
@@ -32,34 +50,41 @@ export default function ModalEditProfile(props) {
       }
     };
   
-    const ChangeRegister = (e) => {
+    const ChangeProfile = (e) => {
       setFormProfile({
         ...formProfile,
         [e.target.name]: e.target.value,
       });
     };
   
-    const SubmitRegister = useMutation(async (e) => {
+    const SubmitEditProfile = useMutation(async (e) => {
       try {
         e.preventDefault();
-    
-        const response = await API.post('/register', formProfile);
-    
-        console.log("register success : ", response)
-    
-        setFormProfile({
-          email: '',
-          password: '',
-          fullname: '',
-          gender: '',
-          phone: '',
-          address: '',
-        });
-        props.toLogin()
+
+        // Configuration
+        const config = {
+          headers: {
+            'Content-type': 'multipart/form-data',
+          },
+        };
+        // Store data with FormData as object
+        const formData = new FormData();
+        if (formProfile.photo_profile) {
+          formData.set('photo_profile', formProfile?.photo_profile[0], formProfile?.photo_profile[0]?.name);
+        }
+        formData.set('fullname', formProfile.fullname);
+        formData.set('email', formProfile.email);
+        formData.set('gender', formProfile.gender);
+        formData.set('phone', formProfile.phone); 
+        formData.set('address', formProfile.address); 
+
+        const response = await API.patch('/user', formData, config);
+        console.log(response.data);
+
         Swal.fire({
           position: 'center',
           icon: 'success',
-          title: 'Register Success',
+          title: 'Update Success',
           showConfirmButton: false,
           timer: 1500
         })
@@ -67,7 +92,7 @@ export default function ModalEditProfile(props) {
         Swal.fire({
           position: 'center',
           icon: 'error',
-          title: 'Register Failed, email is exist',
+          title: 'Update Failed',
           showConfirmButton: false,
           timer: 1500
         })
@@ -83,28 +108,25 @@ export default function ModalEditProfile(props) {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body style={{ backgroundColor: "#161616" }}>
-          <Form onSubmit={(e) => SubmitRegister.mutate(e)}>
+          <Form onSubmit={(e) => SubmitEditProfile.mutate(e)}>
             <Form.Group className="mb-3">
-              <Form.Control type="email" placeholder="Email" name="email" onChange={ChangeRegister} value={email} required />
+              <Form.Control type="email" placeholder="Email" name="email" onChange={ChangeProfile} value={email} required />
             </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Control type="password" placeholder="Password" name="password" onChange={ChangeRegister} value={password} required />
-            </Form.Group>
-            <Form.Group className="mb-3">
-              <Form.Control type="text" placeholder="Fullname" name="fullname" onChange={ChangeRegister} value={fullname} required />
+              <Form.Control type="text" placeholder="Fullname" name="fullname" onChange={ChangeProfile} value={fullname} required />
             </Form.Group>
             <Form.Group className="mb-3" >
-                <Form.Select onChange={ChangeRegister} value={gender} name="gender" className="p-2 formInputProduct" required>
+                <Form.Select onChange={ChangeProfile} value={gender} name="gender" className="p-2 formInputProduct" required>
                 <option className='colorwhite' hidden>Gender</option>
                 <option value="Pria" className='colorblack'>Pria</option>
                 <option value="Perempuan" className='colorblack'>Perempuan</option>
               </Form.Select>
               </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Control type="text" placeholder="Phone" name="phone" onChange={ChangeRegister} value={phone} required />
+              <Form.Control type="text" placeholder="Phone" name="phone" onChange={ChangeProfile} value={phone} required />
             </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Control type="text" placeholder="Address" name="address" onChange={ChangeRegister} value={address} required />
+              <Form.Control type="text" placeholder="Address" name="address" onChange={ChangeProfile} value={address} required />
             </Form.Group>
             <Form.Group className="mb-4">
             <Form.Label htmlFor='upload-profile' className="formInputProduct rounded p-2 flex-between" style={{ cursor: "pointer", backgroundColor: "white" }}>
@@ -116,7 +138,7 @@ export default function ModalEditProfile(props) {
               id="upload-profile"
               type="file"
               className="py-2"
-              name="thumbnail"
+              name="photo_profile"
               onChange={onChangeProfile}
             />
             </Form.Group>

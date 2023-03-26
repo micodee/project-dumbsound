@@ -55,14 +55,9 @@ func (h *userControl) GetUser(c echo.Context) error {
 func (h *userControl) UpdateUser(c echo.Context) error {
 	filePP := c.Get("photo_profile").(string)
 
-	request := dto.UpdateUserRequest{
-		Name: c.FormValue("fullname"),
-		Email: c.FormValue("email"),
-		Password: c.FormValue("password"),
-		Gender: c.FormValue("gender"),
-		Phone: c.FormValue("phone"),
-		Address: c.FormValue("address"),
-		PhotoProfile: filePP,
+	request := new(dto.UpdateUserRequest)
+	if err := c.Bind(&request); err != nil {
+		return c.JSON(http.StatusBadRequest, result.ErrorResult{Status: http.StatusBadRequest, Message: err.Error()})
 	}
 
 	// get user FROM JWT TOKEN
@@ -146,9 +141,13 @@ func (h *userControl) DeleteUser(c echo.Context) error {
 
 func convUser(u models.User) dto.UserResponse {
 	return dto.UserResponse{
-		ID:       u.ID,
-		Name:     u.Fullname,
-		Email:    u.Email,
-		Password: u.Password,
+		ID:           u.ID,
+		Name:         u.Fullname,
+		Email:        u.Email,
+		Password:     u.Password,
+		Gender:       u.Gender,
+		Phone:        u.Phone,
+		Address:      u.Address,
+		PhotoProfile: u.PhotoProfile,
 	}
 }
