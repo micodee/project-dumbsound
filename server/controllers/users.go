@@ -43,9 +43,10 @@ func (h *userControl) FindUsers(c echo.Context) error {
 
 // FUNCTION GET USER BY ID
 func (h *userControl) GetUser(c echo.Context) error {
-	id, _ := strconv.Atoi(c.Param("id"))
+	// get user FROM JWT TOKEN
+	userId := c.Get("userLogin").(jwt.MapClaims)["id"].(float64)
 
-	user, err := h.UserRepository.GetUser(id)
+	user, err := h.UserRepository.GetUser(int(userId))
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, result.ErrorResult{Status: http.StatusBadRequest, Message: err.Error()})
 	}
