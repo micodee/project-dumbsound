@@ -198,6 +198,8 @@ export default function UserPremium(props) {
                   <Form.Control hidden type="text" onChange={ChangePayment} value={formPayment.total_price = 50000} name="total_price"/>
                   Rp. 50.000
                   <Form.Control hidden type="text" onChange={ChangePayment} value={formPayment.active = 90} name="active"/>
+                  <Form.Control hidden type="text" onChange={ChangePayment} value={formPayment.email = props.user.email} name="active"/>
+                  <Form.Control hidden type="text" onChange={ChangePayment} value={formPayment.fullname = props.user.fullname} name="active"/>
                   <p style={{ fontSize: "14px" }}>/ 90 days</p>
                 </Card.Title>
                 <Card.Text>
