@@ -59,6 +59,8 @@ export default function MainApp() {
   const [musicList, setMusic] = useState([])
   const [userList, setUser] = useState([])
   const [artisList, setArtis] = useState([])
+  const [transactionList, setTransaction] = useState([])
+  console.log(transactionList);
 
   useQuery('musicCache', async () => {
     try {
@@ -87,6 +89,15 @@ export default function MainApp() {
       return
     }
   })
+  useQuery('transactionCache', async () => {
+    try {
+      const response = await API.get('/transactions')
+      setTransaction(response.data.data)
+    }
+    catch (error) {
+      return
+    }
+  })
 
   return (
     <>
@@ -98,7 +109,7 @@ export default function MainApp() {
           
           <Route path="/" element={<PrivateRouteUser IsRole={state.user.role}/>}>
             <Route path="/premium" element={<UserPremium IsLogin={state.user.role} user={userList} music={musicList} />} />
-            <Route path="/profile" element={<UserProfile user={userList} />} />
+            <Route path="/profile" element={<UserProfile user={userList} transactionList={transactionList} />} />
           </Route>
 
           <Route path="/" element={<PrivateRouteAdmin IsRole={state.user.role}/>}>
@@ -106,7 +117,7 @@ export default function MainApp() {
             <Route path="/add-artis" element={<AdminAddArtis artis={artisList} />} />
             <Route path="/update-artis/:id" element={<AdminUpdateArtis artis={artisList} />} />
             <Route path="/list-music" element={<AdminListMusic music={musicList} />} />
-            <Route path="/list-income" element={<AdminListIncome music={musicList} />} />
+            <Route path="/list-income" element={<AdminListIncome music={musicList} transaction={transactionList} />} />
           </Route>
         </Routes>
       }

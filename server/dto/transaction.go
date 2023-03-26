@@ -11,11 +11,13 @@ type TransactionResponse struct {
 }
 
 type CreateTransactionRequest struct {
-	Active int `json:"active" form:"active"`
-	TotalPrice int `json:"total_price" form:"total_price"`
+	Active     int    `json:"active" form:"active"`
+	TotalPrice int    `json:"total_price" form:"total_price"`
+	Fullname   string `json:"fullname"`
+	Email      string `json:"email"`
 }
 
 type UpdateTransactionRequest struct {
-	Active int `json:"active" form:"active"`
+	Active     int `json:"active" form:"active"`
 	TotalPrice int `json:"total_price" form:"total_price"`
 }

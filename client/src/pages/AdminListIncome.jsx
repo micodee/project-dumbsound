@@ -60,10 +60,10 @@ export default function AdminListIncome(props) {
 }, [confirmDelete]);
 
   // sort new music
-  let sortMusic = []
-  if (props.music != undefined) {
-    sortMusic = [...props.music]
-    sortMusic.sort((a,b) => b.id - a.id)
+  let sortTransaction = []
+  if (props.transaction != undefined) {
+    sortTransaction = [...props.transaction]
+    sortTransaction.sort((a,b) => b.id - a.id)
   }
   return (
     <>
@@ -85,6 +85,7 @@ export default function AdminListIncome(props) {
               <tr>
                 <th>No</th>
                 <th className="text-center">Users</th>
+                <th className="text-center">Start Date</th>
                 <th className="text-center">Due Date</th>
                 <th className="text-center">Remaining Active</th>
                 <th className="text-center">Status User</th>
@@ -92,16 +93,31 @@ export default function AdminListIncome(props) {
               </tr>
             </thead>
             <tbody>
-              {props.music && sortMusic?.map((item, index) => {
+              {props.transaction && sortTransaction?.map((item, index) => {
+                  let status;
+                  if (item.status === "success") {
+                    status = {
+                      color: "#78A85A"
+                    };
+                  } else if (item.status === "pending") {
+                    status = {
+                      color: "#FF9900"
+                    };
+                  } else if (item.status === "failed") {
+                    status = {
+                      color: "#FFF"
+                    };
+                  }
                 return (
                   <tr key={item.id}>
                     <td style={{ verticalAlign: "middle", textAlign: "center", width: "30px" }}>{index + 1}</td>
-                    <td style={{ verticalAlign: "middle", width: "300px" }}>Tommy Marcelino Hidayat</td>
-                    <td style={{ verticalAlign: "middle", textAlign: "center" }}>26 April 2023</td>
-                    <td className="text-center" style={{ verticalAlign: "middle", width: "200px" }}>30 Days</td>
-                    <td style={{ verticalAlign: "middle", textAlign: "center" }}>Active</td>
+                    <td style={{ verticalAlign: "middle", width: "300px", textTransform: "capitalize" }}>{item.user.fullname}</td>
+                    <td style={{ verticalAlign: "middle", textAlign: "center" }}>{item.start_date}</td>
+                    <td style={{ verticalAlign: "middle", textAlign: "center" }}>{item.due_date}</td>
+                    <td className="text-center" style={{ verticalAlign: "middle", width: "200px" }}>Rp.{item.total_price} / {item.active} Days</td>
+                    <td style={{ verticalAlign: "middle", textAlign: "center" }}>{item.status == "success" ? "active" : "not active"}</td>
                     <td style={{ verticalAlign: "middle", textAlign: "center", width: "200px" }}>
-                      <p>Success</p>
+                      <p style={status}>{item.status}</p>
                     </td>
                   </tr>
                 )

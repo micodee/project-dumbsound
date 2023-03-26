@@ -9,6 +9,14 @@ export default function Home(props) {
 
   const [showLogin, setModalLogin] = useState(false);
   const [showRegister, setModalRegister] = useState(false)
+
+  // sort of new
+  let sortMusic = []
+  if (props.music != undefined) {
+    sortMusic = [...props.music]
+    sortMusic.sort((a,b) => b.id - a.id)
+  }
+
   return (
     <>
       <div className="home">
@@ -25,7 +33,7 @@ export default function Home(props) {
         <h4 className="title-dumbsound">Dengarkan Dan Rasakan</h4>
         <div className="body">
           <Row className="music grid">
-          {props.music?.map(( item ) => {
+          {sortMusic?.map(( item ) => {
           return (
             <Card key={item.id} className="card-music" 
             onClick={() => props.IsLogin != null ? navigate(`/play-music/${item?.id}`) : setModalLogin(true)}

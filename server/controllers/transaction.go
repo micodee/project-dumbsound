@@ -84,6 +84,8 @@ func (h *transactionControl) CreateTransaction(c echo.Context) error {
 		Status:     "pending",
 		TotalPrice: request.TotalPrice,
 		Active:     request.Active,
+		Name:       request.Fullname,
+		Email:      request.Email,
 		UserID:     int(userId),
 	}
 
@@ -91,8 +93,6 @@ func (h *transactionControl) CreateTransaction(c echo.Context) error {
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, result.ErrorResult{Status: http.StatusInternalServerError, Message: err.Error()})
 	}
-
-
 
 	// 1. Initiate Snap client
 	var s = snap.Client{}
@@ -109,8 +109,8 @@ func (h *transactionControl) CreateTransaction(c echo.Context) error {
 			Secure: true,
 		},
 		CustomerDetail: &midtrans.CustomerDetails{
-			FName: dataTransactions.User.Fullname,
-			Email: dataTransactions.User.Email,
+			FName: dataTransactions.Name,
+			Email: dataTransactions.Email,
 		},
 	}
 
@@ -162,7 +162,7 @@ func SendMail(status string, transaction models.Transaction) {
 	if status != transaction.Status && (status == "success") {
 		var CONFIG_SMTP_HOST = "smtp.gmail.com"
 		var CONFIG_SMTP_PORT = 587
-		var CONFIG_SENDER_NAME = "Waysbeans <waysbeans.admin@gmail.com>"
+		var CONFIG_SENDER_NAME = "Dumbsound <dumbsound.admin@gmail.com>"
 		var CONFIG_AUTH_EMAIL = os.Getenv("EMAIL_SYSTEM")
 		var CONFIG_AUTH_PASSWORD = os.Getenv("PASSWORD_SYSTEM")
 
@@ -189,12 +189,14 @@ func SendMail(status string, transaction models.Transaction) {
 					<body>
 					<h2>Product payment :</h2>
 					<ul style="list-style-type:none;">
+							<li>Name : <b>%s</b></li>
+							<li>Email : <b>%s</b></li>
 							<li>Active : <b>%s</b></li>
 							<li>Total payment: Rp.%s</li>
 							<li>Status : <b>%s</b></li>
 					</ul>
 					</body>
-			</html>`, isActive, totalPrice, status))
+			</html>`, transaction.User.Fullname, transaction.User.Email, isActive, totalPrice, status))
 
 		dialer := gomail.NewDialer(
 			CONFIG_SMTP_HOST,

@@ -25,7 +25,9 @@ export default function UserPremium(props) {
 
   const [formPayment, setPayment] = useState({
     active: 1,
-    total_price: 2500
+    total_price: 2500,
+    fullname: props.user.fullname,
+    email: props.user.email,
   });
 
   const ChangePayment = (e) => {
@@ -61,6 +63,8 @@ export default function UserPremium(props) {
             total_price: formPayment.total_price,
             status: "success",
             user: {id:props.user.id},
+            fullname: formPayment.fullname,
+            email: formPayment.email,
           }
           response([newTransactionData]);
           setPayment((formPayment) => ({
@@ -85,12 +89,18 @@ export default function UserPremium(props) {
           navigate("/profile");
         },
         onError: function (result) {
-          /* You may add your own implementation here */
+          const newTransactionData = {
+            status: "failed",
+          }
+          response([newTransactionData]);
           console.log(result);
           navigate("/profile");
         },
         onClose: function () {
-          /* You may add your own implementation here */
+          const newTransactionData = {
+            status: "failed",
+          }
+          response([newTransactionData]);
           alert("you closed the popup without finishing the payment");
         },
       });

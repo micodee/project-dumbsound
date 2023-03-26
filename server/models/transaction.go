@@ -9,6 +9,8 @@ type Transaction struct {
 	Status     string        `json:"status" gorm:"type: varchar(20)"`
 	Active     int           `json:"active" gorm:"type: int"`
 	TotalPrice int           `json:"total_price" gorm:"type: int"`
+	Name       string        `json:"fullname" gorm:"type: varchar(100)"`
+	Email      string        `json:"email" gorm:"type: varchar(100)"`
 }
 
 type TransactionRelation struct {

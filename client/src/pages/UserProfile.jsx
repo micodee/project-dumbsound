@@ -4,6 +4,13 @@ import { ModalEditProfile } from '../components';
 
 export default function UserProfile(props) {
   const [showEdit, setModalEdit] = useState(false);
+
+  // sort of new
+  let sortTransaction = []
+  if (props.transactionList != undefined) {
+    sortTransaction = [...props.transactionList]
+    sortTransaction.sort((a,b) => b.id - a.id)
+  }
   return (
     <>
       <Container className="detail col-9 productadd">
@@ -47,20 +54,38 @@ export default function UserProfile(props) {
           >
             History Transaction
           </h2>
-          <div className="d-flex flex-column gap-2">
-            <div style={{ padding: "1rem 1rem" }} className="d-flex justify-content-between gap-3 bg-dark">
-           <div style={{ display: "flex", gap: "1rem" }}>
-            <div className="d-flex justify-content-center flex-column">
-             <p className="mb-1" style={{ fontSize: "14px" }}>ID Transaction <b>2</b></p>
-             <span style={{ fontSize: "9px" }}><b>Saturday</b>, today</span>
-             <p className="mb-1 mt-1" style={{ fontSize: "10px", fontWeight: "400", }}>Active : 30 Days</p>
-             <p className="mb-1" style={{ fontSize: "10px", fontWeight: "400", }}><b>Price : Rp.50.000</b></p>
+          <div className="d-flex flex-column gap-2" style={{ overflowY: "scroll", overflowX: "hidden", height: "480px" }}>
+          {sortTransaction?.filter((e) => e.user.id === props.user.id).map((item, index) => {
+            let status;
+            if (item.status === "success") {
+              status = {
+                color: "#78A85A", width: "112px", height: "19px", fontWeight: "bold"
+              };
+            } else if (item.status === "pending") {
+              status = {
+                color: "#FF9900", width: "112px", height: "19px", fontWeight: "bold"
+              };
+            } else if (item.status === "failed") {
+              status = {
+                color: "#FFF", width: "112px", height: "19px", fontWeight: "bold"
+              };
+            }
+            return (
+          <div key={index} style={{ padding: "1rem 1rem" }} className="d-flex justify-content-between gap-3 bg-dark">
+            <div style={{ display: "flex", gap: "1rem" }}>
+              <div className="d-flex justify-content-center flex-column">
+              <p className="mb-1" style={{ fontSize: "14px" }}>ID Transaction <b>{item.id}</b></p>
+              <span style={{ fontSize: "9px" }}><b>{item.start_date} - {item.due_date}</b></span>
+              <p className="mb-1 mt-1" style={{ fontSize: "10px", fontWeight: "400", }}>Active : {item.active} Days</p>
+              <p className="mb-1" style={{ fontSize: "10px", fontWeight: "400", }}><b>Price : Rp.{item.total_price}</b></p>
+              </div>
             </div>
-           </div>
            <div className="d-flex justify-content-center align-items-center flex-column col-3">
-           <div style = {{ backgroundColor: "#fff", width: "112px", height: "19px", fontSize: "10px", color: "#FF9900"}} className="flex">pending</div>
+           <div style = {status} className="flex">{item.status}</div>
            </div>
           </div>
+            )
+          } )}
           </div>
         </Col>
       </Row>
