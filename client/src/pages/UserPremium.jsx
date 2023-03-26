@@ -94,7 +94,6 @@ export default function UserPremium(props) {
         onError: function (result) {
           const newTransactionData = {
             status: "failed",
-            id: response.length + 1,
             user: {id:props.user.id}
           }
           response([newTransactionData]);
@@ -107,7 +106,6 @@ export default function UserPremium(props) {
         onClose: function () {
           const newTransactionData = {
             status: "failed",
-            id: response.length + 1,
             user: {id:props.user.id}
           }
           response([newTransactionData]);
