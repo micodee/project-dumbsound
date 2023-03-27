@@ -60,7 +60,6 @@ export default function MainApp() {
   const [userList, setUser] = useState([])
   const [artisList, setArtis] = useState([])
   const [transactionList, setTransaction] = useState([])
-  console.log(transactionList);
 
   useQuery('musicCache', async () => {
     try {
