@@ -4,7 +4,6 @@ import (
 	"dumbsound/dto"
 	"dumbsound/dto/result"
 	"dumbsound/models"
-	"dumbsound/pkg/bcrypt"
 	"dumbsound/repositories"
 	"net/http"
 	"strconv"
@@ -49,13 +48,9 @@ func (h *userControl) GetUser(c echo.Context) error {
 }
 
 func (h *userControl) UpdateUser(c echo.Context) error {
-
-	request := dto.UpdateUserRequest{
-		Name:    c.FormValue("fullname"),
-		Email:   c.FormValue("email"),
-		Gender:  c.FormValue("gender"),
-		Phone:   c.FormValue("phone"),
-		Address: c.FormValue("address"),
+	request := new(dto.UpdateUserRequest)
+	if err := c.Bind(&request); err != nil {
+		return c.JSON(http.StatusBadRequest, result.ErrorResult{Status: http.StatusBadRequest, Message: err.Error()})
 	}
 
 	// get user FROM JWT TOKEN
@@ -66,21 +61,12 @@ func (h *userControl) UpdateUser(c echo.Context) error {
 		return c.JSON(http.StatusBadRequest, result.ErrorResult{Status: http.StatusBadRequest, Message: err.Error()})
 	}
 
-	password, err := bcrypt.HashingPassword(request.Password)
-	if err != nil {
-		return c.JSON(http.StatusBadRequest, result.ErrorResult{Status: http.StatusBadRequest, Message: err.Error()})
-	}
-
 	if request.Name != "" {
 		user.Fullname = request.Name
 	}
 
 	if request.Email != "" {
 		user.Email = request.Email
-	}
-
-	if request.Password != "" {
-		user.Password = password
 	}
 
 	if request.Gender != "" {

@@ -188,7 +188,7 @@ export default function UserPremium(props) {
                   <p style={{ fontSize: "14px" }}>/ 360 days</p>
                 </Card.Title>
                 <Card.Text>
-                <Button variant="secondary col-12" type="submit" style={{ backgroundColor: "#F58033", border: "none" }}>
+                <Button variant="secondary col-12" onClick={(e) => handleBuy.mutate(e)} type="submit" style={{ backgroundColor: "#F58033", border: "none" }}>
                   Pay
                 </Button>
                 </Card.Text>
