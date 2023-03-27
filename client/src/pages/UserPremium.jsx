@@ -23,34 +23,34 @@ export default function UserPremium(props) {
     };
   }, []);
 
-  const [formPayment, setPayment] = useState({
-    active: 1,
-    total_price: 2500,
-    fullname: props.user.fullname,
-    email: props.user.email,
-  });
+  // const [formPayment, setPayment] = useState({
+  //   active: 1,
+  //   total_price: 2500,
+  //   fullname: props.user.fullname,
+  //   email: props.user.email,
+  // });
 
-  const ChangePayment = (e) => {
-    setPayment({
-      ...formPayment,
-      [e.target.name]: e.target.value,
-    });
-  };
+  // const ChangePayment = (e) => {
+  //   setPayment({
+  //     ...formPayment,
+  //     [e.target.name]: e.target.value,
+  //   });
+  // };
 
-  const handleBuy = useMutation(async (e) => {
+  const handleBuy = useMutation(async (data) => {
     const config = {
       headers: {
         'Content-type': 'application/json',
       },
     };
 
-    const data = {
-      active: parseInt(formPayment.active),
-      total_price: parseInt(formPayment.total_price)
-    };
+    // const data = {
+    //   active: active,
+    //   total_price: total_price,
+    // };
+    console.log(data);
     const formDataJSON = JSON.stringify(data);
     try {
-      e.preventDefault();
 
       const response = await API.post('/transaction', formDataJSON, config);
       const token = response.data.data.token;
@@ -59,21 +59,19 @@ export default function UserPremium(props) {
         onSuccess: function (result) {
           const newTransactionData = {
             id: response.length + 1,
-            active: formPayment.active,
-            total_price: formPayment.total_price,
+            active: data.active,
+            total_price: data.total_price,
             status: "success",
             user: {id:props.user.id},
-            name: formPayment.fullname,
-            email: formPayment.email,
           }
           response([newTransactionData]);
-          setPayment((formPayment) => ({
-            ...formPayment,
-            fullname: props.user.fullname,
-            email: props.user.email,
-            active: formPayment.active,
-            total_price: formPayment.total_price,
-          }));
+          // setPayment((formPayment) => ({
+          //   ...formPayment,
+          //   fullname: props.user.fullname,
+          //   email: props.user.email,
+          //   active: formPayment.active,
+          //   total_price: formPayment.total_price,
+          // }));
           Swal.fire({
             position: 'center',
             icon: 'success',
@@ -126,57 +124,45 @@ export default function UserPremium(props) {
               <Card.Text className="paket">BASIC</Card.Text>
               <Card.Img variant="top" src={`/img/music10.png`} className="thumbnail" />
               <Card.Body style={{ padding: "0" }}>
-               {<Form onSubmit={(e) => handleBuy.mutate(e)}>
                 <Card.Title className="title flex-between">
-                  <Form.Control hidden type="text" onChange={ChangePayment} value="2500" name="total_price"/>
                   Rp. 2.500
-                  <Form.Control hidden type="text" onChange={ChangePayment} value="1" name="active"/>
                   <p style={{ fontSize: "14px" }}>/ days</p>
                 </Card.Title>
                 <Card.Text>
-                <Button variant="secondary col-12" type="submit" style={{ backgroundColor: "#F58033", border: "none" }}>
+                <Button variant="secondary col-12" onClick={() => handleBuy.mutate({active: 1, total_price: 2500})} type="submit" style={{ backgroundColor: "#F58033", border: "none" }}>
                   Pay
                 </Button>
                 </Card.Text>
-                </Form>}
               </Card.Body>
             </Card>
             <Card className="card-music">
               <Card.Text className="paket">STANDARD</Card.Text>
               <Card.Img variant="top" src={`/img/music10.png`} className="thumbnail" />
               <Card.Body style={{ padding: "0" }}>
-              {<Form onSubmit={(e) => handleBuy.mutate(e)}>
                 <Card.Title className="title flex-between">
-                  <Form.Control hidden type="text" onChange={ChangePayment} value={25000} name="total_price"/>
                   Rp. 25.000
-                  <Form.Control hidden type="text" onChange={ChangePayment} value={30} name="active"/>
                   <p style={{ fontSize: "14px" }}>/ 30 days</p>
                 </Card.Title>
                 <Card.Text>
-                <Button variant="secondary col-12" type="submit" style={{ backgroundColor: "#F58033", border: "none" }}>
+                <Button variant="secondary col-12" onClick={() => handleBuy.mutate({active: 30, total_price: 25000})} type="submit" style={{ backgroundColor: "#F58033", border: "none" }}>
                   Pay
                 </Button>
                 </Card.Text>
-                </Form>}
               </Card.Body>
             </Card>
             <Card className="card-music">
               <Card.Text className="paket">PROFESSIONAL</Card.Text>
               <Card.Img variant="top" src={`/img/music10.png`} className="thumbnail" />
               <Card.Body style={{ padding: "0" }}>
-                {<Form onSubmit={(e) => handleBuy.mutate(e)}>
                 <Card.Title className="title flex-between">
-                  <Form.Control hidden type="text" onChange={ChangePayment} value={formPayment.total_price = 50000} name="total_price"/>
                   Rp. 50.000
-                  <Form.Control hidden type="text" onChange={ChangePayment} value={formPayment.active = 90} name="active"/>
                   <p style={{ fontSize: "14px" }}>/ 90 days</p>
                 </Card.Title>
                 <Card.Text>
-                <Button variant="secondary col-12" type="submit" style={{ backgroundColor: "#F58033", border: "none" }}>
+                <Button variant="secondary col-12" onClick={() => handleBuy.mutate({active: 90, total_price: 50000})} type="submit" style={{ backgroundColor: "#F58033", border: "none" }}>
                   Pay
                 </Button>
                 </Card.Text>
-                </Form>}
               </Card.Body>
             </Card>
             <Card className="card-music">
@@ -188,7 +174,7 @@ export default function UserPremium(props) {
                   <p style={{ fontSize: "14px" }}>/ 360 days</p>
                 </Card.Title>
                 <Card.Text>
-                <Button variant="secondary col-12" onClick={(e) => handleBuy.mutate(e)} type="submit" style={{ backgroundColor: "#F58033", border: "none" }}>
+                <Button variant="secondary col-12" onClick={() => handleBuy.mutate({active: 360, total_price: 150000})} type="submit" style={{ backgroundColor: "#F58033", border: "none" }}>
                   Pay
                 </Button>
                 </Card.Text>
