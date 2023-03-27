@@ -64,6 +64,8 @@ func (h *userControl) UpdateUser(c echo.Context) error {
 		return c.JSON(http.StatusBadRequest, result.ErrorResult{Status: http.StatusBadRequest, Message: err.Error()})
 	}
 
+	user.ID = int(userId)
+
 	if request.Name != "" {
 		user.Fullname = request.Name
 	}
