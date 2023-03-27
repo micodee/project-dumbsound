@@ -1,22 +1,16 @@
 package controllers
 
 import (
-	"context"
 	"dumbsound/dto"
 	"dumbsound/dto/result"
 	"dumbsound/models"
 	"dumbsound/pkg/bcrypt"
 	"dumbsound/repositories"
-	"fmt"
 	"net/http"
-	"os"
 	"strconv"
 
-	"github.com/cloudinary/cloudinary-go/v2"
-	"github.com/cloudinary/cloudinary-go/v2/api/uploader"
 	"github.com/golang-jwt/jwt/v4"
 	"github.com/labstack/echo/v4"
-	"github.com/labstack/echo/v4/middleware"
 )
 
 // SETUP CONTROL STRUC
@@ -55,23 +49,13 @@ func (h *userControl) GetUser(c echo.Context) error {
 }
 
 func (h *userControl) UpdateUser(c echo.Context) error {
-	e := echo.New()
-
-	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
-		AllowOrigins: []string{"*"},
-		AllowMethods: []string{echo.GET, echo.POST, echo.PUT, echo.PATCH, echo.DELETE, echo.OPTIONS},
-		AllowHeaders: []string{"X-Requested-With", "Content-Type", "Authorization"},
-	}))
-
-	filePP := c.Get("photo_profile").(string)
 
 	request := dto.UpdateUserRequest{
-		Name:         c.FormValue("fullname"),
-		Email:        c.FormValue("email"),
-		Gender:       c.FormValue("gender"),
-		Phone:        c.FormValue("phone"),
-		Address:      c.FormValue("address"),
-		PhotoProfile: filePP,
+		Name:    c.FormValue("fullname"),
+		Email:   c.FormValue("email"),
+		Gender:  c.FormValue("gender"),
+		Phone:   c.FormValue("phone"),
+		Address: c.FormValue("address"),
 	}
 
 	// get user FROM JWT TOKEN
@@ -109,24 +93,6 @@ func (h *userControl) UpdateUser(c echo.Context) error {
 
 	if request.Address != "" {
 		user.Address = request.Address
-	}
-
-	if filePP != "" {
-		// cloudinary
-		var ctx = context.Background()
-		var CLOUD_NAME = os.Getenv("CLOUD_NAME")
-		var API_KEY = os.Getenv("API_KEY")
-		var API_SECRET = os.Getenv("API_SECRET")
-
-		// cloudinary upload new image
-		cld, _ := cloudinary.NewFromParams(CLOUD_NAME, API_KEY, API_SECRET)
-		resp, err := cld.Upload.Upload(ctx, filePP, uploader.UploadParams{Folder: "dumbsound/profile"})
-		if err != nil {
-			fmt.Println(err.Error())
-		}
-		fmt.Println(resp.SecureURL + " update successfully")
-
-		user.PhotoProfile = resp.SecureURL
 	}
 
 	data, err := h.UserRepository.UpdateUser(user)

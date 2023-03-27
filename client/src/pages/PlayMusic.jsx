@@ -18,8 +18,8 @@ export default function PlayMusic(props) {
   }
   return (
     <>
-      <Container className="detail col-9">
-        <Row className="flex-between mb-5">
+      <Container className="detail col-9 p-0">
+        <Row className="flex-between mb-5 m-0 p-0">
           <Col className="header col-2">
             <img src={Product.thumbnail} alt={Product.tilte} className="detail-thumb" />
           </Col>
@@ -37,9 +37,8 @@ export default function PlayMusic(props) {
             </div>
           </Col>
         </Row>
-        <div className="home">
-          <div className="body">
-            <Row className="music grid">
+        <div className="playMusic">
+          <Row className="music grid">
             {sortMusic?.map(( item ) => {
             return (
               <Card key={item.id} className="card-music" 
@@ -58,8 +57,7 @@ export default function PlayMusic(props) {
               </Card>
             );
             })}
-            </Row>
-          </div>
+          </Row>
         </div>
       </Container>
     </>

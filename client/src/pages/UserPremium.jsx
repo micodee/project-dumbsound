@@ -166,9 +166,9 @@ export default function UserPremium(props) {
               <Card.Body style={{ padding: "0" }}>
                 {<Form onSubmit={(e) => handleBuy.mutate(e)}>
                 <Card.Title className="title flex-between">
-                  <Form.Control hidden type="text" onChange={ChangePayment} value={50000} name="total_price"/>
+                  <Form.Control hidden type="text" onChange={ChangePayment} value={formPayment.total_price = 50000} name="total_price"/>
                   Rp. 50.000
-                  <Form.Control hidden type="text" onChange={ChangePayment} value={90} name="active"/>
+                  <Form.Control hidden type="text" onChange={ChangePayment} value={formPayment.active = 90} name="active"/>
                   <p style={{ fontSize: "14px" }}>/ 90 days</p>
                 </Card.Title>
                 <Card.Text>
