@@ -12,10 +12,8 @@ export default function ModalEditProfile(props) {
     gender: '',
     phone: '',
     address: '',
-    photo_profile: '',
+    photo_profile: '/img/music10.png',
     });
-  
-    const { email, fullname, gender, phone, address } = formProfile;
 
     const [urlImage, setUrlImage] = useState("Choose Profile");
 
@@ -69,9 +67,9 @@ export default function ModalEditProfile(props) {
         };
         // Store data with FormData as object
         const formData = new FormData();
-        if (formProfile.photo_profile) {
-          formData.set('photo_profile', formProfile?.photo_profile[0], formProfile?.photo_profile[0]?.name);
-        }
+        // if (formProfile.photo_profile) {
+        //   formData.set('photo_profile', formProfile?.photo_profile[0], formProfile?.photo_profile[0]?.name);
+        // }
         formData.set('fullname', formProfile.fullname);
         formData.set('email', formProfile.email);
         formData.set('gender', formProfile.gender);
@@ -110,23 +108,23 @@ export default function ModalEditProfile(props) {
         <Modal.Body style={{ backgroundColor: "#161616" }}>
           <Form onSubmit={(e) => SubmitEditProfile.mutate(e)}>
             <Form.Group className="mb-3">
-              <Form.Control type="email" placeholder="Email" name="email" onChange={ChangeProfile} value={email} required />
+              <Form.Control type="email" placeholder="Email" name="email" onChange={ChangeProfile} value={formProfile.email} required />
             </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Control type="text" placeholder="Fullname" name="fullname" onChange={ChangeProfile} value={fullname} required />
+              <Form.Control type="text" placeholder="Fullname" name="fullname" onChange={ChangeProfile} value={formProfile.fullname} required />
             </Form.Group>
             <Form.Group className="mb-3" >
-                <Form.Select onChange={ChangeProfile} value={gender} name="gender" className="p-2 formInputProduct" required>
+                <Form.Select onChange={ChangeProfile} value={formProfile.gender} name="gender" className="p-2 formInputProduct" required>
                 <option className='colorwhite' hidden>Gender</option>
                 <option value="Pria" className='colorblack'>Pria</option>
                 <option value="Perempuan" className='colorblack'>Perempuan</option>
               </Form.Select>
               </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Control type="text" placeholder="Phone" name="phone" onChange={ChangeProfile} value={phone} required />
+              <Form.Control type="text" placeholder="Phone" name="phone" onChange={ChangeProfile} value={formProfile.phone} required />
             </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Control type="text" placeholder="Address" name="address" onChange={ChangeProfile} value={address} required />
+              <Form.Control type="text" placeholder="Address" name="address" onChange={ChangeProfile} value={formProfile.address} required />
             </Form.Group>
             <Form.Group className="mb-4">
             <Form.Label htmlFor='upload-profile' className="formInputProduct rounded p-2 flex-between" style={{ cursor: "pointer", backgroundColor: "white" }}>
