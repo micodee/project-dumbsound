@@ -122,7 +122,7 @@ func UploadFile(next echo.HandlerFunc) echo.HandlerFunc {
 
 			data := tempFile.Name()
 
-			c.Set("image", data)
+			c.Set("photo_profile", data)
 		} else {
 			return c.JSON(http.StatusBadRequest, "The file extension is wrong. Allowed file extensions are images (.png, .jpg, .jpeg, .webp)")
 		}

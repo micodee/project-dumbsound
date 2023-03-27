@@ -69,7 +69,10 @@ export default function UserPremium(props) {
           response([newTransactionData]);
           setPayment((formPayment) => ({
             ...formPayment,
-            [e.target.name]: e.target.value,
+            fullname: props.user.fullname,
+            email: props.user.email,
+            active: formPayment.active,
+            total_price: formPayment.total_price,
           }));
           Swal.fire({
             position: 'center',
@@ -82,37 +85,22 @@ export default function UserPremium(props) {
           setTimeout(function() {
             window.location.reload();
           }, 1000);
+          return
         },
         onPending: function (result) {
           /* You may add your own implementation here */
           console.log(result);
           navigate("/profile");
-          setTimeout(function() {
-            window.location.reload();
-          }, 1000);
+          return
         },
         onError: function (result) {
-          const newTransactionData = {
-            status: "failed",
-            user: {id:props.user.id}
-          }
-          response([newTransactionData]);
           console.log(result);
           navigate("/profile");
-          setTimeout(function() {
-            window.location.reload();
-          }, 1000);
+          return
         },
         onClose: function () {
-          const newTransactionData = {
-            status: "failed",
-            user: {id:props.user.id}
-          }
-          response([newTransactionData]);
-          setTimeout(function() {
-            window.location.reload();
-          }, 1000);
           alert("you closed the popup without finishing the payment");
+          return
         },
       });
     } catch (error) {
@@ -132,34 +120,17 @@ export default function UserPremium(props) {
       <div className="premium">
         <h1 className="title">Premium</h1>
         <p>Bayar sekarang dan nikmati streaming music yang kekinian dari <span className="dumb">DUMB</span><span className="sound">SOUND</span></p>
-        <Form className="form-payment" onSubmit={(e) => handleBuy.mutate(e)}>
-          <div className="flex">
-            <Form.Group className="mb-3 col-4">
-              <Form.Select onChange={ChangePayment} value={formPayment.active} name="active" className="p-2 formInputProduct">
-                <option className="text-black" value={1}>Rp.2.000/hari</option>
-                <option className="text-black" value={30}>Rp.25.000/bulan</option>
-                <option className="text-black" value={90}>Rp.50.000/3 bulan</option>
-                <option className="text-black" value={360}>Rp.150.000/tahun</option>
-              </Form.Select>
-            </Form.Group>
-          </div>
-          <div className="flex mt-3">
-            <Button variant="secondary col-4" type="submit" style={{ backgroundColor: "#F58033", border: "none" }}>
-              Pay
-            </Button>
-          </div>
-        </Form>
           <div className="premiumCard">
           <Row className="music grid">
             <Card className="card-music">
               <Card.Text className="paket">BASIC</Card.Text>
               <Card.Img variant="top" src={`/img/music10.png`} className="thumbnail" />
               <Card.Body style={{ padding: "0" }}>
-               <Form onSubmit={(e) => handleBuy.mutate(e)}>
+               {<Form onSubmit={(e) => handleBuy.mutate(e)}>
                 <Card.Title className="title flex-between">
-                  <Form.Control hidden type="text" onChange={ChangePayment} value={formPayment.total_price = 2500} name="total_price"/>
+                  <Form.Control hidden type="text" onChange={ChangePayment} value="2500" name="total_price"/>
                   Rp. 2.500
-                  <Form.Control hidden type="text" onChange={ChangePayment} value={formPayment.active = 1} name="active"/>
+                  <Form.Control hidden type="text" onChange={ChangePayment} value="1" name="active"/>
                   <p style={{ fontSize: "14px" }}>/ days</p>
                 </Card.Title>
                 <Card.Text>
@@ -167,18 +138,18 @@ export default function UserPremium(props) {
                   Pay
                 </Button>
                 </Card.Text>
-                </Form>
+                </Form>}
               </Card.Body>
             </Card>
             <Card className="card-music">
               <Card.Text className="paket">STANDARD</Card.Text>
               <Card.Img variant="top" src={`/img/music10.png`} className="thumbnail" />
               <Card.Body style={{ padding: "0" }}>
-              <Form onSubmit={(e) => handleBuy.mutate(e)}>
+              {<Form onSubmit={(e) => handleBuy.mutate(e)}>
                 <Card.Title className="title flex-between">
-                  <Form.Control hidden type="text" onChange={ChangePayment} value={formPayment.total_price = 25000} name="total_price"/>
+                  <Form.Control hidden type="text" onChange={ChangePayment} value={25000} name="total_price"/>
                   Rp. 25.000
-                  <Form.Control hidden type="text" onChange={ChangePayment} value={formPayment.active = 30} name="active"/>
+                  <Form.Control hidden type="text" onChange={ChangePayment} value={30} name="active"/>
                   <p style={{ fontSize: "14px" }}>/ 30 days</p>
                 </Card.Title>
                 <Card.Text>
@@ -186,20 +157,18 @@ export default function UserPremium(props) {
                   Pay
                 </Button>
                 </Card.Text>
-                </Form>
+                </Form>}
               </Card.Body>
             </Card>
             <Card className="card-music">
               <Card.Text className="paket">PROFESSIONAL</Card.Text>
               <Card.Img variant="top" src={`/img/music10.png`} className="thumbnail" />
               <Card.Body style={{ padding: "0" }}>
-                <Form onSubmit={(e) => handleBuy.mutate(e)}>
+                {<Form onSubmit={(e) => handleBuy.mutate(e)}>
                 <Card.Title className="title flex-between">
-                  <Form.Control hidden type="text" onChange={ChangePayment} value={formPayment.total_price = 50000} name="total_price"/>
+                  <Form.Control hidden type="text" onChange={ChangePayment} value={50000} name="total_price"/>
                   Rp. 50.000
-                  <Form.Control hidden type="text" onChange={ChangePayment} value={formPayment.active = 90} name="active"/>
-                  <Form.Control hidden type="text" onChange={ChangePayment} value={formPayment.email = props.user.email} name="active"/>
-                  <Form.Control hidden type="text" onChange={ChangePayment} value={formPayment.fullname = props.user.fullname} name="active"/>
+                  <Form.Control hidden type="text" onChange={ChangePayment} value={90} name="active"/>
                   <p style={{ fontSize: "14px" }}>/ 90 days</p>
                 </Card.Title>
                 <Card.Text>
@@ -207,7 +176,7 @@ export default function UserPremium(props) {
                   Pay
                 </Button>
                 </Card.Text>
-                </Form>
+                </Form>}
               </Card.Body>
             </Card>
             <Card className="card-music">

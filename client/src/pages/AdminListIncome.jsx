@@ -105,7 +105,7 @@ export default function AdminListIncome(props) {
                     };
                   } else if (item.status === "failed") {
                     status = {
-                      color: "#FFF"
+                      color: "red"
                     };
                   }
                 return (

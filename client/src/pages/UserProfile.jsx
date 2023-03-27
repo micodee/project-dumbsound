@@ -67,7 +67,7 @@ export default function UserProfile(props) {
               };
             } else if (item.status === "failed") {
               status = {
-                color: "#FFF", width: "112px", height: "19px", fontWeight: "bold"
+                color: "red", width: "112px", height: "19px", fontWeight: "bold"
               };
             }
             return (
