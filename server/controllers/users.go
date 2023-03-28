@@ -56,9 +56,10 @@ func (h *userControl) UpdateUser(c echo.Context) error {
 		Phone: c.FormValue("phone"),
 	}
 
-	id, _ := strconv.Atoi(c.Param("id"))
+	// get user FROM JWT TOKEN
+	userId := c.Get("userLogin").(jwt.MapClaims)["id"].(float64)
 
-	user, err := h.UserRepository.GetUser(id)
+	user, err := h.UserRepository.GetUser(int(userId))
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, result.ErrorResult{Status: http.StatusBadRequest, Message: err.Error()})
 	}
@@ -83,7 +84,7 @@ func (h *userControl) UpdateUser(c echo.Context) error {
 		user.Address = request.Address
 	}
 
-	data, err := h.UserRepository.UpdateUser(user, id)
+	data, err := h.UserRepository.UpdateUser(user)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, result.ErrorResult{Status: http.StatusInternalServerError, Message: err.Error()})
 	}

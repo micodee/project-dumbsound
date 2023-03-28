@@ -12,7 +12,7 @@ type User struct {
 	Phone        string                `json:"phone" gorm:"type: varchar(20)"`
 	Address      string                `json:"address" gorm:"type: varchar(255)"`
 	PhotoProfile string                `json:"photo_profile" gorm:"type: varchar(255)"`
-	Transaction  []TransactionRelation `json:"transaction"`
+	Transaction  []TransactionRelation `json:"transaction" gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
 	CreatedAt    time.Time             `json:"created_at"`
 	UpdatedAt    time.Time             `json:"updated_at"`
 }
