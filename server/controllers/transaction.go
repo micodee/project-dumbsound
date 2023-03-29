@@ -215,6 +215,21 @@ func SendMail(status string, transaction models.Transaction) {
 	}
 }
 
+func (h *transactionControl) DeleteTransaction(c echo.Context) error {
+	id, _ := strconv.Atoi(c.Param("id"))
+
+	transaction, err := h.TransactionRepository.GetTransaction(id)
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, result.ErrorResult{Status: http.StatusBadRequest, Message: err.Error()})
+	}
+
+	data, err := h.TransactionRepository.DeleteTransaction(transaction, id)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, result.ErrorResult{Status: http.StatusInternalServerError, Message: err.Error()})
+	}
+	return c.JSON(http.StatusOK, result.SuccessResult{Status: "deleted success", Data: respTransaction(data)})
+}
+
 func respTransaction(u models.Transaction) dto.TransactionResponse {
 	return dto.TransactionResponse{
 		ID:        u.ID,

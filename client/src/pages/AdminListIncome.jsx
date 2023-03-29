@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { Container, Row, Col, Button, Table } from "react-bootstrap";
-import { useMutation, useQuery } from 'react-query';
+import { Container, Row, Col, Table } from "react-bootstrap";
+import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import DeleteData from '../components/ModalDelete';
@@ -24,9 +24,9 @@ export default function AdminListIncome(props) {
 
   const deleteById = useMutation(async (id) => {
    try {
-    const response = await API.delete(`/music/${id}`);
+    const response = await API.delete(`/transaction/${id}`);
     console.log(response)
-     navigate("/list-music")
+     navigate("/list-income")
      Swal.fire({
        position: 'center',
        icon: 'success',
@@ -116,8 +116,9 @@ export default function AdminListIncome(props) {
                     <td style={{ verticalAlign: "middle", textAlign: "center" }}>{item.due_date}</td>
                     <td className="text-center" style={{ verticalAlign: "middle", width: "200px" }}>Rp.{item.total_price} / {item.active} Days</td>
                     <td style={{ verticalAlign: "middle", textAlign: "center" }}>{item.status == "success" ? "active" : "not active"}</td>
-                    <td style={{ verticalAlign: "middle", textAlign: "center", width: "200px" }}>
+                    <td className='flex gap-4' style={{ verticalAlign: "middle", textAlign: "center", width: "200px" }}>
                       <p style={status}>{item.status}</p>
+                      <p style={{ backgroundColor: "red", width: "30px", cursor: "pointer" }} onClick={() => handleDelete(item.id)}>X</p>
                     </td>
                   </tr>
                 )

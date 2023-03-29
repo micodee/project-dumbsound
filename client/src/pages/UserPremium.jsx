@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { Form, Button, Card, Row } from "react-bootstrap";
+import React, { useEffect } from "react";
+import { Button, Card, Row } from "react-bootstrap";
 import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import Header from "../components/Header";
 import { API } from "../config/api";
 
 export default function UserPremium(props) {
@@ -114,7 +113,6 @@ export default function UserPremium(props) {
   });
   return (
     <>
-      <Header IsLogin={props.IsLogin} user={props.user}/>
       <div className="premium">
         <h1 className="title">Premium</h1>
         <p>Bayar sekarang dan nikmati streaming music yang kekinian dari <span className="dumb">DUMB</span><span className="sound">SOUND</span></p>

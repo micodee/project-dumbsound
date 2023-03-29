@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Form, Dropdown } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../context/contextUser";
@@ -22,13 +22,26 @@ const DropUser = (props) => {
           timer: 1500
         })
     }
+
+    const [timeLeft, setTimeLeft] = useState(10); // 3 * 24 * 60 * 60
+
+    useEffect(() => {
+      const timer =
+        timeLeft > 0 && setInterval(() => setTimeLeft(timeLeft - 1), 1000);
+
+      return () => clearInterval(timer);
+    }, [timeLeft]);
   return (
     <div>
       <Form className="d-flex align-items-center gap-3">
         <Link to="/premium" className="position-relative">
           <h4 className="active-user">Hi, {props.user.fullname}</h4>
-          <p className="active-remaining">You're active remaining <span style={{ color: "#eee", fontWeight: "bold" }}>3 days</span></p>
-        </Link>
+          {timeLeft > 0 ?
+          <p className="active-remaining">You're active remaining <span style={{ color: "#ee4622", fontWeight: "bold" }}>{Math.ceil(timeLeft / (24 * 60 * 60))} days</span></p>
+          :
+          <p className="active-remaining">You're <span style={{ color: "#ee4622", fontWeight: "bold" }}>not active</span></p>
+        }
+          </Link>
         <Dropdown className="dropdown" align="end" id="dropdown-menu-align-end">
           <Dropdown.Toggle className="profile">
             <img
