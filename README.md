@@ -23,6 +23,17 @@ This website was created using [Bootstrap](https://getbootstrap.com/) and [SCSS]
 - Frontend Vercel https://dumbsound-two.vercel.app/
 - Backend Railways
 
+## Available Features
+
+- Modal Login & Register.
+- Landing Pages.
+- Profile page for each creator.
+- API Endpoint for all above features.
+- Password Hashing Middleware for each User using [Bcrypt](https://pkg.go.dev/golang.org/x/crypto/bcrypt).
+- Middleware Upload File to upload files from user input files.
+- Middleware to authenticate by creating a Token from [JWT](https://jwt.io/).
+- Payment Gateways using [Midtrans](midtrans.com).
+
 ```bash
 npm start
 ```
