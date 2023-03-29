@@ -1,4 +1,7 @@
 # Running Project
 
 Frontend :
-- Vercel https://dumbsound-two.vercel.app/
+- Vercel https://dumbsound-two.vercel.app/ 
+```bash
+npm start
+```
