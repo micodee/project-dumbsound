@@ -1,0 +1,100 @@
+[
+ {
+  "id" : 1,
+  "title" : "Tragic",
+  "year" : "2019",
+  "thumbnail" : "https://images.unsplash.com/photo-1661956602139-ec64991b8b16?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=365&q=80",
+  "attach" : "lagu.mp3",
+  "artis" : {
+   "id" : "1",
+   "name" : "QG",
+   "old" : 28,
+   "type" : "solo",
+   "startcareer" : "2018"
+  }
+ },
+ {
+  "id" : 1,
+  "title" : "Tragic",
+  "year" : "2019",
+  "thumbnail" : "https://images.unsplash.com/photo-1661956602139-ec64991b8b16?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=365&q=80",
+  "attach" : "lagu.mp3",
+  "artis" : {
+   "id" : "1",
+   "name" : "QG",
+   "old" : 28,
+   "type" : "solo",
+   "startcareer" : "2018"
+  }
+ },
+ {
+  "id" : 1,
+  "title" : "Tragic",
+  "year" : "2019",
+  "thumbnail" : "https://images.unsplash.com/photo-1661956602139-ec64991b8b16?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=365&q=80",
+  "attach" : "lagu.mp3",
+  "artis" : {
+   "id" : "1",
+   "name" : "QG",
+   "old" : 28,
+   "type" : "solo",
+   "startcareer" : "2018"
+  }
+ },
+ {
+  "id" : 1,
+  "title" : "Tragic",
+  "year" : "2019",
+  "thumbnail" : "https://images.unsplash.com/photo-1661956602139-ec64991b8b16?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=365&q=80",
+  "attach" : "lagu.mp3",
+  "artis" : {
+   "id" : "1",
+   "name" : "QG",
+   "old" : 28,
+   "type" : "solo",
+   "startcareer" : "2018"
+  }
+ },
+ {
+  "id" : 1,
+  "title" : "Tragic",
+  "year" : "2019",
+  "thumbnail" : "https://images.unsplash.com/photo-1661956602139-ec64991b8b16?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=365&q=80",
+  "attach" : "lagu.mp3",
+  "artis" : {
+   "id" : "1",
+   "name" : "QG",
+   "old" : 28,
+   "type" : "solo",
+   "startcareer" : "2018"
+  }
+ },
+ {
+  "id" : 1,
+  "title" : "Tragic",
+  "year" : "2019",
+  "thumbnail" : "https://images.unsplash.com/photo-1661956602139-ec64991b8b16?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=365&q=80",
+  "attach" : "lagu.mp3",
+  "artis" : {
+   "id" : "1",
+   "name" : "QG",
+   "old" : 28,
+   "type" : "solo",
+   "startcareer" : "2018"
+  }
+ },
+ {
+  "id" : 1,
+  "title" : "Tragic",
+  "year" : "2019",
+  "thumbnail" : "https://images.unsplash.com/photo-1661956602139-ec64991b8b16?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=365&q=80",
+  "attach" : "lagu.mp3",
+  "artis" : {
+   "id" : "1",
+   "name" : "QG",
+   "old" : 28,
+   "type" : "solo",
+   "startcareer" : "2018"
+  }
+ }
+]

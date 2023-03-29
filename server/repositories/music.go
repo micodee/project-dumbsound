@@ -20,13 +20,13 @@ func RepositoryMusic(db *gorm.DB) *repository {
 
 func (r *repository) FindMusic() ([]models.Music, error) {
 	var musics []models.Music
-	err := r.db.Find(&musics).Error
+	err := r.db.Preload("Artis").Find(&musics).Error
 	return musics, err
 }
 
 func (r *repository) GetMusics(ID int) (models.Music, error) {
 	var musics models.Music
-	err := r.db.First(&musics, ID).Error
+	err := r.db.Preload("Artis").First(&musics, ID).Error
 	return musics, err
 }
 

@@ -1,0 +1,40 @@
+.detail .header img {
+ width: 236px;
+ height: 236px;
+ object-fit: cover;
+ border-radius: 5px;
+}
+.detail-title {
+ font-weight: 900;
+ font-size: 48px;
+}
+
+.playMusic {
+ width: 100%;
+ margin: auto;
+}
+
+.playMusic .card {
+ padding: 0.65rem;
+ background-color: #3a3a3a;
+ cursor: pointer;
+}
+
+.playMusic .thumbnail {
+ width: 100%;
+ height: 140px;
+ object-fit: cover;
+}
+
+.playMusic .title {
+ font-size: 18px;
+ margin-top: 0.5rem;
+ font-weight: 600;
+}
+
+.playMusic .music {
+ grid-template-columns: repeat(6, 1fr);
+ gap: 1rem;
+ padding: 0;
+ margin: 0;
+}

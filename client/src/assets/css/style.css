@@ -1,0 +1,323 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none !important;
+  font-family: "Open Sans", sans-serif;
+  color: #fff;
+}
+
+body {
+  background-color: #161616;
+}
+
+::-webkit-scrollbar {
+  width: 0.65rem;
+  background-color: #3a3a3a;
+  border-radius: 0.5rem;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #EE4622;
+  border-radius: 0.5rem;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #d7330e;
+}
+
+p {
+  margin: 0;
+  padding: 0;
+}
+
+.flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.grid {
+  display: grid;
+}
+
+.colorblack {
+  color: black;
+}
+
+.colorwhite {
+  color: white;
+}
+
+.navbar .register {
+  background-color: #EE4622;
+  color: #fff;
+  border: none;
+  padding: 0.1rem 2rem;
+}
+
+.navbar .login {
+  background-color: transparent;
+  color: #fff;
+  border: 2px solid #fff;
+  padding: 0.1rem 2rem;
+}
+
+.dropdown .profile::before {
+  content: "";
+}
+
+.dropdown .profile {
+  background-color: transparent !important;
+  border: none;
+}
+
+.dropdown .profile:hover {
+  background-color: transparent;
+  border: none;
+}
+
+.dropdown .menu {
+  color: #000 !important;
+  text-decoration: none !important;
+  font-weight: 600 !important;
+}
+
+.dropdown .menu img {
+  width: 20px;
+  height: 20px;
+  margin-right: 0.5rem;
+}
+
+.active-user {
+  text-align: end;
+  text-transform: capitalize;
+}
+
+.active-remaining {
+  font-size: 12px;
+  margin-top: -0.35rem;
+  text-align: end;
+}
+
+.home {
+  background-color: #161616;
+  padding-bottom: 4rem;
+}
+
+.home .imgheader {
+  width: 100%;
+  position: relative;
+}
+
+.home .textheader {
+  position: absolute;
+  text-align: center;
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.home .textheader h1 {
+  font-weight: 400;
+}
+
+.home .title-dumbsound {
+  text-align: center;
+  color: #EE4622;
+  margin: 1rem 0 1.5rem;
+}
+
+.home .body {
+  width: 1264px;
+  margin: auto;
+}
+
+.home .music {
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1rem;
+  padding: 0;
+  margin: 0;
+}
+
+.home .body .card {
+  padding: 0.65rem;
+  cursor: pointer;
+  background-color: #3a3a3a;
+}
+
+.home .body .thumbnail {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+}
+
+.home .body .title {
+  font-size: 18px;
+  margin-top: 0.5rem;
+  font-weight: 600;
+}
+
+.productadd .formInputProduct {
+  background-color: #454545;
+  border: 2px solid #D2D2D2;
+  color: #D2D2D2;
+}
+
+.productadd .formInputProduct::-webkit-input-placeholder {
+  color: #D2D2D2;
+}
+
+.detail {
+  position: relative;
+  margin-top: 8rem;
+  margin-bottom: 2rem;
+}
+
+.detail .header {
+  padding: 0;
+}
+
+.detail .preview-image {
+  width: 350px;
+  height: 350px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.detail .preview-music {
+  width: 350px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.detailprice {
+  text-align: right;
+  font-weight: 900;
+  font-size: 24px;
+  color: #974A4A;
+  margin-bottom: 3rem;
+  margin-top: 2rem;
+}
+
+.detaildesc {
+  text-align: justify;
+}
+
+.detailBtnAdd {
+  background-color: #613D2B;
+  color: #fff;
+  border: none;
+}
+
+.premium {
+  padding: 7rem 0 0;
+  width: 964px;
+  margin: auto;
+  text-align: center;
+}
+
+.premium .title {
+  font-weight: bold;
+  font-size: 36px;
+  margin-bottom: 2rem;
+}
+
+.premium .dumb {
+  font-weight: bold;
+  color: #ee4622;
+}
+
+.premium .sound {
+  font-weight: bold;
+}
+
+.premium .form-payment {
+  margin-top: 2rem;
+}
+
+.premiumCard {
+  padding-top: 2rem;
+  width: 100%;
+  margin: auto;
+}
+
+.premiumCard .card {
+  padding: 0.65rem;
+  background-color: #3a3a3a;
+}
+
+.premiumCard .thumbnail {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+}
+
+.premiumCard .title {
+  font-size: 18px;
+  margin-top: 0.5rem;
+  font-weight: 600;
+}
+
+.premiumCard .music {
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  padding: 0;
+  margin: 0;
+}
+
+.paket {
+  font-weight: 900;
+  margin-bottom: 0.65rem;
+}
+
+.detail .header img {
+  width: 236px;
+  height: 236px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.detail-title {
+  font-weight: 900;
+  font-size: 48px;
+}
+
+.playMusic {
+  width: 100%;
+  margin: auto;
+}
+
+.playMusic .card {
+  padding: 0.65rem;
+  background-color: #3a3a3a;
+  cursor: pointer;
+}
+
+.playMusic .thumbnail {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+}
+
+.playMusic .title {
+  font-size: 18px;
+  margin-top: 0.5rem;
+  font-weight: 600;
+}
+
+.playMusic .music {
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1rem;
+  padding: 0;
+  margin: 0;
+}/*# sourceMappingURL=style.css.map */

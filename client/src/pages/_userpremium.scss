@@ -1,0 +1,56 @@
+.premium {
+  padding: 7rem 0 0;
+  width: 964px;
+  margin: auto;
+  text-align: center;
+}
+.premium .title {
+  font-weight: bold;
+  font-size: 36px;
+  margin-bottom: 2rem;
+}
+.premium .dumb {
+  font-weight: bold;
+  color: #ee4622;
+}
+.premium .sound {
+  font-weight: bold;
+}
+.premium .form-payment {
+  margin-top: 2rem;
+}
+
+.premiumCard {
+  padding-top: 2rem;
+  width: 100%;
+  margin: auto;
+}
+
+.premiumCard .card {
+  padding: 0.65rem;
+  background-color: #3a3a3a;
+}
+
+.premiumCard .thumbnail {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+}
+
+.premiumCard .title {
+  font-size: 18px;
+  margin-top: 0.5rem;
+  font-weight: 600;
+}
+
+.premiumCard .music {
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  padding: 0;
+  margin: 0;
+}
+
+.paket {
+ font-weight: 900;
+ margin-bottom: .65rem;
+}

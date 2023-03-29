@@ -1,0 +1,49 @@
+.productadd .formInputProduct {
+ background-color: #454545;
+ border: 2px solid #D2D2D2;
+ color: #D2D2D2;
+}
+.productadd .formInputProduct::-webkit-input-placeholder {
+ color: #D2D2D2;
+}
+
+.detail {
+ position: relative;
+ margin-top: 8rem;
+ margin-bottom: 2rem;
+}
+.detail .header {
+ padding: 0;
+}
+
+.detail .preview-image {
+ width: 350px;
+ height: 350px;
+ object-fit: cover;
+ border-radius: 5px;
+}
+.detail .preview-music {
+ width: 350px;
+ height: 100px;
+ object-fit: cover;
+ border-radius: 5px;
+}
+
+.detailprice {
+ text-align: right;
+ font-weight: 900;
+ font-size: 24px;
+ color: #974A4A;
+ margin-bottom: 3rem;
+ margin-top: 2rem;
+}
+
+.detaildesc {
+ text-align: justify;
+}
+
+.detailBtnAdd {
+ background-color: #613D2B;
+ color: #fff;
+ border: none;
+}
