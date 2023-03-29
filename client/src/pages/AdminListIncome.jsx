@@ -8,6 +8,7 @@ import { API } from '../config/api';
 
 export default function AdminListIncome(props) {
  let navigate = useNavigate()
+ console.log(new Date());
   
   // Variabel for delete product data
   const [idDelete, setIdDelete] = useState(null);
@@ -116,7 +117,7 @@ export default function AdminListIncome(props) {
                     <td style={{ verticalAlign: "middle", textAlign: "center" }}>{item.due_date}</td>
                     <td className="text-center" style={{ verticalAlign: "middle", width: "200px" }}>Rp.{item.total_price} / {item.active} Days</td>
                     <td style={{ verticalAlign: "middle", textAlign: "center" }}>{item.status == "success" ? "active" : "not active"}</td>
-                    <td className='flex gap-4' style={{ verticalAlign: "middle", textAlign: "center", width: "200px" }}>
+                    <td className='flex-between' style={{ verticalAlign: "middle", textAlign: "center", width: "200px" }}>
                       <p style={status}>{item.status}</p>
                       <p style={{ backgroundColor: "red", width: "30px", cursor: "pointer" }} onClick={() => handleDelete(item.id)}>X</p>
                     </td>

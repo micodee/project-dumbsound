@@ -41,7 +41,7 @@ export default function Home(props) {
               <Card.Img variant="top" src={item.thumbnail} className="thumbnail" />
               <Card.Body style={{ padding: "0" }}>
                 <Card.Title className="title flex-between">
-                  {item.title}
+                  <p style={{ lineClamp: "1", overflow: "hidden", textOverflow: "ellipsis", display: "block", whiteSpace: "nowrap" }}>{item.title}</p>
                   <p style={{ fontSize: "14px" }}>{item.year}</p>
                 </Card.Title>
                 <Card.Text>

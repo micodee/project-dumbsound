@@ -39,7 +39,7 @@ const DropUser = (props) => {
           {timeLeft > 0 ?
           <p className="active-remaining">You're active remaining <span style={{ color: "#ee4622", fontWeight: "bold" }}>{Math.ceil(timeLeft / (24 * 60 * 60))} days</span></p>
           :
-          <p className="active-remaining">You're <span style={{ color: "#ee4622", fontWeight: "bold" }}>not active</span></p>
+          <p className="active-remaining">You're <span style={{ color: "#ee4622", fontWeight: "bold" }}>not active</span> | buy premium</p>
         }
           </Link>
         <Dropdown className="dropdown" align="end" id="dropdown-menu-align-end">

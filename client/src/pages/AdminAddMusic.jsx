@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Container, Row, Col, Button, Form } from "react-bootstrap";
+import { Container, Row, Col, Button, Form, Spinner } from "react-bootstrap";
 import AudioPlayer from "react-h5-audio-player";
 import "react-h5-audio-player/lib/styles.css";
 import { useMutation } from 'react-query';
@@ -15,6 +15,7 @@ export default function AdminAddMusic(props) {
   const [autoplay, setAutoplay] = useState("")
   const [urlImage, setUrlImage] = useState("Attach Thumbnail");
   const [UrlMusic, setUrlMusic] = useState("Attach Music");
+  const [isLoading, setIsLoading] = React.useState(false);
 
   // form data
   const [formAddMusic, setformAddMusic] = useState({
@@ -67,6 +68,7 @@ export default function AdminAddMusic(props) {
 
   const submitAddMusic = useMutation(async (e) => {
     try {
+      setIsLoading(true);
       e.preventDefault();
 
       // Configuration
@@ -108,6 +110,8 @@ export default function AdminAddMusic(props) {
         timer: 1500
       })
       console.log("add music failed : ", error);
+    } finally {
+      setIsLoading(false);
     }
   });
 
@@ -169,8 +173,8 @@ export default function AdminAddMusic(props) {
                 />
               </Form.Group>
               <div className="d-flex justify-content-center" style={{ marginTop: "3rem" }}>
-                <Button variant="secondary col-5" type="submit" style={{ backgroundColor: "#EE4622", border: "none" }}>
-                  Add Song
+                <Button disabled={isLoading} variant="secondary col-5" type="submit" style={{ backgroundColor: "#EE4622", border: "none" }}>
+                  {isLoading ? (<Spinner aria-label="Medium sized spinner example" size="sm" />) : ("Add Song")}
                 </Button>
               </div>
             </Form>
