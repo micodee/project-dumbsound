@@ -173,9 +173,16 @@ export default function AdminAddMusic(props) {
                 />
               </Form.Group>
               <div className="d-flex justify-content-center" style={{ marginTop: "3rem" }}>
-                <Button disabled={isLoading} variant="secondary col-5" type="submit" style={{ backgroundColor: "#EE4622", border: "none" }}>
-                  {isLoading ? (<Spinner aria-label="Medium sized spinner example" size="sm" />) : ("Add Song")}
-                </Button>
+                {isLoading ? (
+                  <Button disabled={isLoading} variant="secondary col-5" type="submit" style={{ backgroundColor: "#EE4622", border: "none" }}>
+                    <Spinner aria-label="Medium sized spinner example" size="sm" /> ...Loading
+                  </Button>
+                ) : (
+                  <Button disabled={isLoading} variant="secondary col-5" type="submit" style={{ backgroundColor: "#EE4622", border: "none" }}>
+                    Add Song
+                  </Button>
+                )
+                }
               </div>
             </Form>
           </div>

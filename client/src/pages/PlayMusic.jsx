@@ -47,11 +47,11 @@ export default function PlayMusic(props) {
                 <Card.Img variant="top" src={item.thumbnail} className="thumbnail" />
                 <Card.Body style={{ padding: "0" }}>
                   <Card.Title className="title flex-between">
-                    {item.title}
+                    <p style={{ lineClamp: "1", overflow: "hidden", textOverflow: "ellipsis", display: "block", whiteSpace: "nowrap" }}>{item.title}</p>
                     <p style={{ fontSize: "14px" }}>{item.year}</p>
                   </Card.Title>
                   <Card.Text>
-                    <p style={{fontSize: "14px" }}>{item.artis.name}</p>
+                    <p style={{fontSize: "14px", lineClamp: "1", overflow: "hidden", textOverflow: "ellipsis", display: "block", whiteSpace: "nowrap" }}>{item.artis.name}</p>
                   </Card.Text>
                 </Card.Body>
               </Card>

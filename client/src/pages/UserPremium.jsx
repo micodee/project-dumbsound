@@ -120,7 +120,6 @@ export default function UserPremium(props) {
           <Row className="music grid">
             <Card className="card-music">
               <Card.Text className="paket">BASIC</Card.Text>
-              <Card.Img variant="top" src={`/img/music10.png`} className="thumbnail" />
               <Card.Body style={{ padding: "0" }}>
                 <Card.Title className="title flex-between">
                   Rp. 2.500
@@ -135,7 +134,6 @@ export default function UserPremium(props) {
             </Card>
             <Card className="card-music">
               <Card.Text className="paket">STANDARD</Card.Text>
-              <Card.Img variant="top" src={`/img/music10.png`} className="thumbnail" />
               <Card.Body style={{ padding: "0" }}>
                 <Card.Title className="title flex-between">
                   Rp. 25.000
@@ -150,7 +148,6 @@ export default function UserPremium(props) {
             </Card>
             <Card className="card-music">
               <Card.Text className="paket">PROFESSIONAL</Card.Text>
-              <Card.Img variant="top" src={`/img/music10.png`} className="thumbnail" />
               <Card.Body style={{ padding: "0" }}>
                 <Card.Title className="title flex-between">
                   Rp. 50.000
@@ -165,7 +162,6 @@ export default function UserPremium(props) {
             </Card>
             <Card className="card-music">
               <Card.Text className="paket">ENTERPRISE</Card.Text>
-              <Card.Img variant="top" src={`/img/music10.png`} className="thumbnail" />
               <Card.Body style={{ padding: "0" }}>
                 <Card.Title className="title flex-between">
                   Rp. 150.000
